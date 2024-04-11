@@ -1,0 +1,6 @@
+@RequisitionService_HostAddress = http://localhost:5228
+
+GET {{RequisitionService_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

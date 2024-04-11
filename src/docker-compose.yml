@@ -1,0 +1,164 @@
+version: '3.9'
+
+services:
+  car-page-service:
+    image: ${DOCKER_REGISTRY-}car-page-service
+    container_name:  car-page-service
+    build:
+      context: .
+      dockerfile: CarPageService/Dockerfile
+    ports:
+      - 4041:4041
+      - 5051:5051
+    environment:
+      - ASPNETCORE_Kestrel__Certificates__Default__Path=/app/certificates/aspnetapp.pfx
+      - ASPNETCORE_Kestrel__Certificates__Default__Password=pass1234
+      - ASPNETCORE_URLS=https://+:5051;http://+:4041
+      #- ASPNETCORE_ENVIROMENT=Development
+    depends_on:
+      car-page-service.db:
+        condition: service_healthy
+
+  car-page-service.db:
+    image: postgres:latest
+    container_name: car-page-service.db
+    volumes:
+      - car-page-service-db-data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_DB=car-page-service
+      - POSTGRES_PASSWORD=1234
+      - POSTGRES_USER=postgres
+    ports:
+      - 5432:5432
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d car-page-service"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          cpus: '1'
+          memory: 4G
+  
+  card-service:
+    image: ${DOCKER_REGISTRY-}card-service
+    container_name: card-service
+    build:
+      context: .
+      dockerfile: CardService/Dockerfile
+    ports:
+      - 4042:4042
+      - 5052:5052
+    environment:
+      - ASPNETCORE_Kestrel__Certificates__Default__Path=/app/certificates/aspnetapp.pfx
+      - ASPNETCORE_Kestrel__Certificates__Default__Password=pass1234
+      - ASPNETCORE_URLS=https://+:5052;http://+:4042
+      #- ASPNETCORE_ENVIROMENT=Development
+    depends_on:
+      card-service.db:
+        condition: service_healthy
+
+  card-service.db:
+    image: postgres:latest
+    container_name: card-service.db
+    volumes:
+      - card-service-db-data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_DB=card-service
+      - POSTGRES_PASSWORD=1234
+      - POSTGRES_USER=postgres
+      - PGPORT=4040
+    ports:
+      - "4040:4040"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d card-service"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          cpus: '1'
+          memory: 4G
+
+  api-gateway:
+    image: ${DOCKER_REGISTRY-}api-gateway
+    container_name: api-gateway
+    build:
+      context: .
+      dockerfile: ApiGateway/Dockerfile
+    ports:
+      - 4043:4043
+      - 5053:5053
+    environment:
+      - ASPNETCORE_Kestrel__Certificates__Default__Path=/app/certificates/aspnetapp.pfx
+      - ASPNETCORE_Kestrel__Certificates__Default__Password=pass1234
+      - ASPNETCORE_URLS=https://+:5053;http://+:4043
+      #- ASPNETCORE_ENVIROMENT=Development
+
+  requisition-service:
+    image: ${DOCKER_REGISTRY-}requisition-service
+    container_name: requisition-service
+    build:
+      context: .
+      dockerfile: RequisitionService/Dockerfile
+    ports:
+      - 4044:4044
+      - 5054:5054
+    environment:
+      - ASPNETCORE_Kestrel__Certificates__Default__Path=/app/certificates/aspnetapp.pfx
+      - ASPNETCORE_Kestrel__Certificates__Default__Password=pass1234
+      - ASPNETCORE_URLS=https://+:5054;http://+:4044
+      #- ASPNETCORE_ENVIROMENT=Development
+    depends_on:
+      requisition-service.db:
+        condition: service_healthy
+
+  requisition-service.db:
+    image: postgres:latest
+    container_name: requisition-service.db
+    volumes:
+      - requisition-service-db-data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_DB=requisition-service
+      - POSTGRES_PASSWORD=1234
+      - POSTGRES_USER=postgres
+      - PGPORT=5433
+    ports:
+      - "5433:5433"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d requisition-service"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          cpus: '1'
+          memory: 4G
+
+  rabbit-mq:
+    container_name: rabbitmq
+    image: rabbitmq:management
+    hostname: my-rabbitmq
+    ports:
+      - 5672:5672
+      - 15672:15672
+    volumes:
+        - rabbitmqdata:/var/lib/rabbitmq
+    environment:
+      RABBITMQ_USER: gleb
+      RABBITMQ_PASS: 1234
+volumes:
+  card-service-db-data:
+  car-page-service-db-data:
+  requisition-service-db-data:
+  rabbitmqdata:
+
