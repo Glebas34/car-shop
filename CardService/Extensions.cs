@@ -15,7 +15,8 @@ namespace CardService
                 Price=card.Price,
                 Package=card.Package, 
                 Color = card.Color,
-                Year = card.Year
+                Year = card.Year,
+                Image = card.Image
             };
         }
     }

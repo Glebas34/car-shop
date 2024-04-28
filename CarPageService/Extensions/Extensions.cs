@@ -17,7 +17,9 @@ namespace CarPageService.Extensions
                 Power = carPage.Power,
                 Acceleration = carPage.Acceleration,
                 FuelConsumption = carPage.FuelConsumption,
-                Package = carPage.Package
+                Package = carPage.Package,
+                MainImage = carPage.MainImage,
+                Images = carPage.Images
             };
         }
     }

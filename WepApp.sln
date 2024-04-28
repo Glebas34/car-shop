@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "api-gateway", "ApiGateway\a
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "requisition-service", "RequisitionService\requisition-service.csproj", "{38ACE8E0-EA29-4BDA-9E90-07A6F1119A67}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "image-service", "ImageService\image-service.csproj", "{BF8A6E02-E7F8-460E-B175-BC27B6B49969}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -42,5 +44,9 @@ Global
 		{38ACE8E0-EA29-4BDA-9E90-07A6F1119A67}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{38ACE8E0-EA29-4BDA-9E90-07A6F1119A67}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{38ACE8E0-EA29-4BDA-9E90-07A6F1119A67}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BF8A6E02-E7F8-460E-B175-BC27B6B49969}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BF8A6E02-E7F8-460E-B175-BC27B6B49969}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BF8A6E02-E7F8-460E-B175-BC27B6B49969}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BF8A6E02-E7F8-460E-B175-BC27B6B49969}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

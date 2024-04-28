@@ -14,5 +14,7 @@ namespace CarPageService.Entities
         public string FuelConsumption {get;set;}
         public string Package {get;set;}
         public int Year {get;set;}
+        public string? MainImage {get;set;}
+        public List<string> Images {get;set;}
     }
 }

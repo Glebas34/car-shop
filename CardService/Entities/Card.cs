@@ -10,5 +10,6 @@ namespace CardService.Entities
         public Guid CarPageId {get;init;}
         public string Color {get;set;}
         public int Year {get;set;}
+        public string Image {get;set;}
     }
 }

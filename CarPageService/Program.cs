@@ -3,15 +3,22 @@ using CarPageService.Interfaces;
 using CarPageService.Repositories;
 using CarPageService.Database;
 using MassTransit;
+using CarPageService.Consumers;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 builder.Services.AddDbContext<AppDbContext>(options => options.UseNpgsql(builder.Configuration.GetConnectionString("PostgreSQL")));
 builder.Services.AddScoped<ICarPageRepository,CarPageRepository>();
+builder.Services.AddScoped<IImageRepository,ImageRepository>();
 builder.Services.AddMassTransit(busConfigurator=>
 {
     busConfigurator.SetKebabCaseEndpointNameFormatter();
+
+     busConfigurator.AddConsumer<ImageCreatedConsumer>()
+        .Endpoint(c => c.InstanceId = "carpage-service");
+    busConfigurator.AddConsumer<ImageDeletedConsumer>()
+        .Endpoint(c => c.InstanceId = "carpage-service");
 
     busConfigurator.UsingRabbitMq((context, configurator)=>
     {

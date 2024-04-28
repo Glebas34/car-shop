@@ -57,7 +57,8 @@ namespace CarPageService.Controllers
                 FuelConsumption = createCarPage.FuelConsumption,
                 Package = createCarPage.Package,
                 Year = createCarPage.Year,
-                Color =  createCarPage.Color
+                Color =  createCarPage.Color,
+                Images = new List<string>()
             };
 
             await _carPageRepository.CreateAsync(carPage);

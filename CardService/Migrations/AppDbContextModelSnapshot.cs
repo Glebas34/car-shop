@@ -32,6 +32,9 @@ namespace cardservice.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<string>("Image")
+                        .HasColumnType("text");
+
                     b.Property<string>("Manufacturer")
                         .IsRequired()
                         .HasColumnType("text");
@@ -65,6 +68,10 @@ namespace cardservice.Migrations
                         .HasColumnType("uuid");
 
                     b.Property<string>("Color")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Image")
                         .IsRequired()
                         .HasColumnType("text");
 

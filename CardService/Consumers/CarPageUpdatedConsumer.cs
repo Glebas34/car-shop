@@ -28,6 +28,7 @@ namespace CardService.Consumers
             existingCarPage.Package = message.Package;
             existingCarPage.Color = message.Color;
             existingCarPage.Year = message.Year;
+            existingCarPage.Image = message.Image;
 
             existingCard.Manufacturer = existingCarPage.Manufacturer;
             existingCard.Model = existingCarPage.Model;
@@ -35,6 +36,7 @@ namespace CardService.Consumers
             existingCard.Package = existingCarPage.Package;
             existingCard.Color = existingCarPage.Color;
             existingCard.Year = existingCarPage.Year;
+            existingCard.Image = existingCarPage.Image;
 
             await _carPageRepository.UpdateAsync(existingCarPage);
             await _cardRepository.UpdateAsync(existingCard);

@@ -12,5 +12,6 @@ namespace RequisitionService.Entities
         public string Color {get;set;}
         public string Package {get;set;}
         public Guid CarPageId {get;init;}
+        public string CarImage {get;set;}
     }
 }

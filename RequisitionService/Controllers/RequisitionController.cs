@@ -65,7 +65,8 @@ namespace RequisitionService.Controllers
                 Price = carPage.Price,
                 Color = carPage.Color,
                 Package = carPage.Package,
-                Year = carPage.Year
+                Year = carPage.Year,
+                CarImage = carPage.Image
             };
 
             await _requisitionRepository.CreateAsync(requisition);

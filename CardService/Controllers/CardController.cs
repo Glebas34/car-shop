@@ -67,7 +67,8 @@ namespace CardService.Controllers
                 Package = carPage.Package,
                 CarPageId = carPageId,
                 Color = carPage.Color,
-                Year = carPage.Year
+                Year = carPage.Year,
+                Image = carPage.Image
             };
 
             await _cardRepository.CreateAsync(card);

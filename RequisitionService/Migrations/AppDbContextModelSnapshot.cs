@@ -32,6 +32,9 @@ namespace requisitionservice.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<string>("Image")
+                        .HasColumnType("text");
+
                     b.Property<string>("Manufacturer")
                         .IsRequired()
                         .HasColumnType("text");
@@ -60,6 +63,10 @@ namespace requisitionservice.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
+
+                    b.Property<string>("CarImage")
+                        .IsRequired()
+                        .HasColumnType("text");
 
                     b.Property<Guid>("CarPageId")
                         .HasColumnType("uuid");

@@ -11,5 +11,6 @@ namespace CarPageService.Database
         }
         
         public DbSet<CarPage> CarPages {get;set;}
+        public DbSet<Image> Images {get;set;}
     }
 }
