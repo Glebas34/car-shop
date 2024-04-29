@@ -14,8 +14,8 @@ namespace ImageService.Services
         public async Task<Image> UploadAsync(CreateImage createImage, Guid carPageId, bool isMain)
         {
             var file = createImage.Image;
-            byte[] fileBytes = new Byte[file.Length];
-            file.OpenReadStream().Read(fileBytes, 0, Int32.Parse(file.Length.ToString()));
+            var fileBytes = new byte[file.Length];
+            file.OpenReadStream().Read(fileBytes, 0, int.Parse(file.Length.ToString()));
             var stream = new MemoryStream(fileBytes);
             string root;
             if(isMain)
