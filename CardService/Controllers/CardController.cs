@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace CardService.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("Card")]
     public class CardController: ControllerBase
     {
         private readonly ICardRepository _cardRepository;

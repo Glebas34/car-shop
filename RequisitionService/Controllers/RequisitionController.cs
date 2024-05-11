@@ -6,7 +6,7 @@ using RequisitionService.Dtos;
 namespace RequisitionService.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("Requisition")]
     public class RequisitionController: ControllerBase
     {
         private readonly IRequisitionRepository _requisitionRepository;

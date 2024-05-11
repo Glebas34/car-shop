@@ -9,7 +9,7 @@ using Contracts;
 namespace CarPageService.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("CarPage")]
     public class CarPageController: ControllerBase
     {
         private readonly ICarPageRepository _carPageRepository;

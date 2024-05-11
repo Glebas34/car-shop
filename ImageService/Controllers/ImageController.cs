@@ -10,7 +10,7 @@ using Contracts;
 namespace ImageService.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("Image")]
     public class ImageController : ControllerBase
     {
         private readonly IImageRepository _imageRepository;
