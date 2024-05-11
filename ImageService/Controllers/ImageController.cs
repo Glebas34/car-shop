@@ -26,7 +26,7 @@ namespace ImageService.Controllers
             _storageServiceCreator = storageServiceCreator;
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("{carPageId}")]
         public async Task<IActionResult> GetAllAsync(Guid carPageId)
         {
             var carPage = await _carPageRepository.GetAsync(carPageId);
