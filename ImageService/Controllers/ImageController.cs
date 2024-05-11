@@ -41,7 +41,7 @@ namespace ImageService.Controllers
             return Ok(images);
         }
 
-        [HttpGet("MainImage/{id}")]
+        [HttpGet("MainImage/{carPageId}")]
         public async Task<IActionResult> GetMainAsync(Guid carPageId)
         {
             var carPage = await _carPageRepository.GetAsync(carPageId);
