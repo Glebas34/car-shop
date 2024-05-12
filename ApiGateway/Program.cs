@@ -1,20 +1,29 @@
+using System.Net.Security;
+using System.Security.Cryptography.X509Certificates;
+
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddReverseProxy()
-    .LoadFromConfig(builder.Configuration.GetSection("ReverseProxy"));
-var app = builder.Build();
+var cert = new X509Certificate2("certificates/aspnetapp.pfx", "1234");
 
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+builder.Services.AddReverseProxy()
+    .ConfigureHttpClient((context, handler) =>
+        {
+            handler.SslOptions = new SslClientAuthenticationOptions
+            {
+                ClientCertificates = new X509CertificateCollection
+                {
+                    cert
+                }
+            };
+        
+
+        })
+    .LoadFromConfig(builder.Configuration.GetSection("ReverseProxy"));
+
+var app = builder.Build();
 
 //app.UseHttpsRedirection();
 

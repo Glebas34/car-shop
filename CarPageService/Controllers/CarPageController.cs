@@ -23,9 +23,9 @@ namespace CarPageService.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAllAsync()
         {
-            var carPageDtos = await _carPageRepository.GetAllAsync();
+            var carPages = await _carPageRepository.GetAllAsync();
 
-            return Ok(carPageDtos);
+            return Ok(carPages);
         }
 
         [HttpGet("{id}")]

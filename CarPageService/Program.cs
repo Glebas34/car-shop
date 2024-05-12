@@ -5,6 +5,9 @@ using CarPageService.Database;
 using MassTransit;
 using CarPageService.Consumers;
 
+System.Net.ServicePointManager.ServerCertificateValidationCallback += 
+    (s, cert, chain, sslPolicyErrors) => true;
+
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();

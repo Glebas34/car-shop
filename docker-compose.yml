@@ -12,7 +12,7 @@ services:
       - 5051:5051
     environment:
       - ASPNETCORE_Kestrel__Certificates__Default__Path=/app/certificates/aspnetapp.pfx
-      - ASPNETCORE_Kestrel__Certificates__Default__Password=pass1234
+      - ASPNETCORE_Kestrel__Certificates__Default__Password=1234
       - ASPNETCORE_URLS=https://+:5051;http://+:4041
       #- ASPNETCORE_ENVIROMENT=Development
     depends_on:
@@ -54,7 +54,7 @@ services:
       - 5052:5052
     environment:
       - ASPNETCORE_Kestrel__Certificates__Default__Path=/app/certificates/aspnetapp.pfx
-      - ASPNETCORE_Kestrel__Certificates__Default__Password=pass1234
+      - ASPNETCORE_Kestrel__Certificates__Default__Password=1234
       - ASPNETCORE_URLS=https://+:5052;http://+:4042
       #- ASPNETCORE_ENVIROMENT=Development
     depends_on:
@@ -97,7 +97,7 @@ services:
       - 5053:5053
     environment:
       - ASPNETCORE_Kestrel__Certificates__Default__Path=/app/certificates/aspnetapp.pfx
-      - ASPNETCORE_Kestrel__Certificates__Default__Password=pass1234
+      - ASPNETCORE_Kestrel__Certificates__Default__Password=1234
       - ASPNETCORE_URLS=https://+:5053;http://+:4043
       #- ASPNETCORE_ENVIROMENT=Development
 
@@ -112,7 +112,7 @@ services:
       - 5054:5054
     environment:
       - ASPNETCORE_Kestrel__Certificates__Default__Path=/app/certificates/aspnetapp.pfx
-      - ASPNETCORE_Kestrel__Certificates__Default__Password=pass1234
+      - ASPNETCORE_Kestrel__Certificates__Default__Password=1234
       - ASPNETCORE_URLS=https://+:5054;http://+:4044
       #- ASPNETCORE_ENVIROMENT=Development
     depends_on:
@@ -151,12 +151,12 @@ services:
       context: .
       dockerfile: ImageService/Dockerfile
     ports:
-      - 4045:4045
+      - 4046:4046
       - 5055:5055
     environment:
       - ASPNETCORE_Kestrel__Certificates__Default__Path=/app/certificates/aspnetapp.pfx
-      - ASPNETCORE_Kestrel__Certificates__Default__Password=pass1234
-      - ASPNETCORE_URLS=https://+:5055;http://+:4045
+      - ASPNETCORE_Kestrel__Certificates__Default__Password=1234
+      - ASPNETCORE_URLS=https://+:5055;http://+:4046
       #- ASPNETCORE_ENVIROMENT=Development
     depends_on:
       image-service.db:
