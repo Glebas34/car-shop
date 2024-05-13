@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Контакты</title>
+    <link rel="stylesheet" href="contactsStyles.css">
+    <link rel="icon" type="image/png" href="C:\Users\ekras\Desktop\CarShop\Frontend/icon.png">
+</head>
+<body>
+<header>
+    <div class="logo">AutoSphere</div>
+    <nav>
+        <ul>
+            <li><a href="index.html">Главная</a></li>
+            <li><a href="shop.html">Каталог</a></li>
+            <li><a href="contacts.html">Контакты</a></li>
+        </ul>
+    </nav>
+</header>
+<div class="contacts__left">
+  <h1 class="main__title"> Контакты</h1>
+  <div class="contacts__adress">
+    <div class="contacts__adress-item">
+      <p>Адрес:</p>
+      <span>г. Москва, ул. Примерная, д. 123</span>
+    </div>
+    <div class="contacts__adress-item">
+      <p>Часы работы:</p>
+      <span>Пн-Пт: 9:00 - 18:00; Сб: 10:00 - 15:00; Вс: выходной</span>
+    </div>
+    <div class="contacts__adress-item">
+      <p>Телефон:</p>
+      <span><a>+7 (XXX) XXX-XX-XX</a></span>
+    </div>
+  </div>
+  <div class="contacts__form">
+    <form class="form main__form form__validate" action="/modules/orders/controller/createOrder.php" method="POST">
+      <input pattern="[A-Za-zА-Яа-яЁё\s]+" title="Введите только буквы" class="main__form-input" type="text" name="fio" placeholder="ФИО" autocomplete="off" required>
+      <input pattern="\+7 \(\d{3}\) \d{3}-\d{2}-\d{2}" title="Введите телефон в формате +7 (XXX) XXX-XX-XX" class="input-phone main__form-input" type="tel" name="phone" autocomplete="off" placeholder="Телефон" inputmode="numeric" required>
+      <button type="button" class="main__form-button">Обратный звонок</button>
+    </form>
+  </div>
+</div>
+<script src="scriptContacts.js"></script>
+</body>
+</html>

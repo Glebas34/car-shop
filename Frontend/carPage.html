@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Автомобиль</title>
+    <link rel="stylesheet" href="carPage.css">
+    <link rel="icon" type="image/png" href="C:\Users\ekras\Desktop\CarShop\Frontend/icon.png">
+</head>
+<body>
+    <header>
+        <div class="logo">AutoSphere</div>
+        <nav>
+            <ul>
+                <li><a href="index.html">Главная</a></li>
+                <li><a href="shop.html">Каталог</a></li>
+                <li><a href="contacts.html">Контакты</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <section>
+            <div class="car-container">
+            <img src="" alt="Изображение автомобиля" class="car-image">
+            <div class="car-details">
+                <!-- Детали автомобиля будут заполнены через JavaScript -->
+            </div>
+        </div>
+        </section>
+        <section>
+            <!-- Форма заявки -->
+            <div class="form-container">
+                <form id="orderForm">
+                    <input type="text" id="fullName" name="fio" placeholder="ФИО" required>
+                    <input type="tel" id="phone" name="phone" placeholder="Телефон" required>
+                    <input type="submit" class="submit-btn" value="Отправить заявку">
+                </form>
+            </div>
+        </section>
+    </main>
+    <script src="carPage.js"></script>
+</body>
+</html>

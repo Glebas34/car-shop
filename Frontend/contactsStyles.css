@@ -1,0 +1,91 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f8f8f8;
+}
+h1 {
+    color: #333;
+    margin: 0;
+    padding: 0;
+}
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+a {
+    text-decoration: none;
+    color: blue;
+}
+header {
+    background-color: #333;
+    color: white;
+    padding: 10px 0;
+    text-align: center;
+}
+nav ul li {
+    display: inline;
+    margin-right: 10px;
+}
+nav ul li a{
+    color: white;
+    text-decoration: none;
+    padding: 8px 15px;
+    border: 1px solid transparent;
+    border-radius: 5px;
+    background-color: transparent;
+}
+nav ul li a:hover {
+    background-color: white;
+    color: #333;
+}
+.logo {
+    font-size: 1.5em;
+    font-weight: bold;
+    pointer-events: none;
+    user-select: none;
+}
+.logo:hover {
+    cursor: default;
+}
+.contacts__left {
+    margin: 20px auto;
+    width: 80%;
+    background-color: white;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+.contacts__adress-item {
+    margin-bottom: 10px;
+}
+.contacts__adress-item p {
+    font-weight: bold;
+}
+.main__form {
+    margin-top: 20px;
+}
+.main__form-input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+.input-phone {
+    width: 100%;
+}
+.main__form-button {
+    background-color: #333;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.main__form-button:hover {
+    background-color: #555;
+}
+.contacts__adress-item a {
+    color: black;
+}

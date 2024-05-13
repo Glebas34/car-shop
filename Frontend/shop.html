@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Каталог</title>
+    <link rel="stylesheet" href="shopStyles.css">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" type="image/png" href="C:\Users\ekras\Desktop\CarShop\Frontend/icon.png">
+</head>
+<body>
+  <header>
+    <div class="logo">AutoSphere</div>
+    <nav>
+        <ul>
+            <li><a href="index.html">Главная</a></li>
+            <li><a href="shop.html">Каталог</a></li> 
+            <li><a href="contacts.html">Контакты</a></li> 
+        </ul>
+    </nav>
+</header>
+<section class="filter__section">
+  <section class="filter__section">
+    <div class="search-container">
+      <select id="carBrand" class="select-style">
+          <option value="porsche">Porsche</option>
+          <option value="bmw">BMW</option>
+          <option value="mercedes">Mercedes</option>
+      </select>
+      <select id="carModel" class="select-style">>
+      </select>
+      <div class="price-range-container">
+        <span class="price-label">Цена:</span>
+        <span class="price-value" id="priceValue">0 ₽</span>
+        <input type="range" class="price-range" id="priceRange" min="0" max="30000000" value="0" oninput="updatePriceValue(this.value)">
+      </div>
+      <button class="search-button" onclick="searchCars()">Найти</button>
+  </div>
+  </section>
+  <template id="car-card-template">
+    <div class="product-card" onclick="redirectToCarPage(this)">
+        <div class="product-image">
+            <img src="" alt="Изображение автомобиля">
+        </div>
+        <div class="product-details">
+            <h2>Название автомобиля</h2>
+            <p>Комплектация</p>
+            <p>Характеристики</p>
+            <p class="product-price">Цена</p>
+            <button class="order-button" onclick="event.stopPropagation(); openOrderModal();">Заказать</button>
+        </div>
+    </div>
+</template>
+<p id="output"></p>
+<script>
+  const params = new Proxy(new URLSearchParams(window.location.search), {
+    get: (searchParams, prop) => searchParams.get(prop),
+  });
+  let value = params.key; // "some_value"
+  console.log(value);
+  // Предполагаем, что у вас есть элемент p с id="output"
+  document.getElementById('output').textContent = value;
+  </script>
+<!-- Модальное окно для заказа -->
+<div id="orderModal" class="modal">
+  <div class="modal-content">
+      <span class="close-button" onclick="closeModal()">&times;</span>
+      <h2>Оформление заказа</h2>
+      <form id="orderForm">
+        <input type="text" id="fullName" name="fio" placeholder="ФИО" required>
+        <input type="tel" id="phone" name="phone" placeholder="Телефон" required>
+        <input type="submit" value="Отправить">
+    </form>
+  </div>
+</div>
+  <script src="scriptShop.js"></script>
+</body>
+</html>

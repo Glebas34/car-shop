@@ -1,0 +1,70 @@
+/* Общие стили */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f8f8f8;
+}
+h1, h2
+{
+    color: #333;
+}
+h3 {
+    color: white;
+}
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+/* Header */
+header {
+    background-color: #333;
+    color: white;
+    padding: 10px 0;
+    text-align: center;
+}
+nav ul li {
+    display: inline;
+    margin-right: 10px;
+}
+nav ul li a{
+    color: white;
+    text-decoration: none;
+    padding: 8px 15px;
+    border: 1px solid transparent;
+    border-radius: 5px;
+    background-color: transparent;
+}
+nav ul li a:hover {
+    background-color: white;
+    color: #333;
+}
+.logo {
+    font-size: 1.5em;
+    font-weight: bold;
+    pointer-events: none; 
+    user-select: none;
+}
+.logo:hover {
+    cursor: default; 
+}
+/* Main Content */
+.main-content {
+    padding: 20px;
+    text-align: center;
+}
+.advantages-section,
+.offers,
+.reviews,
+.contact-info {
+    margin-bottom: 50px;
+}
+footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 10px 0;
+}
