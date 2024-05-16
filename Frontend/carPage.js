@@ -7,36 +7,33 @@ function fetchCarData() {
         })
         .catch(error => console.error('Ошибка при получении данных:', error));
 }
-
 // Функция для обновления страницы данными об автомобиле
 function updateCarPage(carData) {
     // Обновление названия автомобиля и фотографии
     document.querySelector('.car-image').src = carData.imageUrl;
     document.querySelector('.car-details h2').textContent = carData.name;
-    // Обновление технических характеристик
-    document.querySelector('.car-details').innerHTML += `
-        <p>Производитель: ${carData.manufacturer}</p>
-        <p>Модель: ${carData.model}</p>
-        <p>Цена: ${carData.price.toLocaleString()}₽</p>
-        <p>Цвет: ${carData.color}</p>
-        <p>Гарантия: ${carData.warranty}</p>
-        <p>Скорость: ${carData.speed} км/ч</p>
-        <p>Мощность: ${carData.power} л.с.</p>
-        <p>Разгон до 100 км/ч: ${carData.acceleration} сек</p>
-        <p>Расход топлива: ${carData.fuelConsumption} л/100км</p>
-        <p>Комплектация: ${carData.package}</p>
-        <p>Год выпуска: ${carData.year}</p>
-    `;
-    // Обновление селектора цветов
-    const colorSelector = document.getElementById('color-selector');
-    carData.availableColors.forEach(color => {
-        const option = document.createElement('option');
-        option.value = color;
-        option.textContent = color;
-        colorSelector.appendChild(option);
-    });
+// Обновление технических характеристик
+document.querySelector('.car-details').innerHTML += `
+    <p>Производитель: ${carData.manufacturer}</p>
+    <p>Модель: ${carData.model}</p>
+    <p>Цена: ${carData.price.toLocaleString()}₽</p>
+    <p>Гарантия: ${carData.warranty}</p>
+    <p>Скорость: ${carData.speed} км/ч</p>
+    <p>Мощность: ${carData.power} л.с.</p>
+    <p>Разгон до 100 км/ч: ${carData.acceleration} сек</p>
+    <p>Расход топлива: ${carData.fuelConsumption} л/100км</p>
+    <p>Комплектация: ${carData.package}</p>
+    <p>Год выпуска: ${carData.year}</p>
+`;
+// Обновление остальных фотографий
+const imageGallery = document.querySelector('.image-gallery');
+carData.imageGallery.forEach(image => {
+    const img = document.createElement('img');
+    img.src = image;
+    img.classList.add('gallery-image');
+    imageGallery.appendChild(img);
+});
 }
-
 // Обработчик событий при загрузке страницы
 document.addEventListener('DOMContentLoaded', function() {
     // Вызов функции для получения данных об автомобиле
@@ -78,3 +75,59 @@ document.addEventListener('DOMContentLoaded', function() {
         event.target.value = phoneNumber;
     });
 });
+/*const sendData = async () => {
+    try {
+    const response = await fetch('https://example.com/submit-application', {
+    method: 'POST',
+    headers: {
+    'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+    manufacturer: carData.manufacturer,
+    model: carData.model,
+    price: carData.price,
+    warranty: carData.warranty,
+    speed: carData.speed,
+    power: carData.power,
+    acceleration: carData.acceleration,
+    fuelConsumption: carData.fuelConsumption,
+    package: carData.package,
+    year: carData.year
+    })
+    });
+    const data = await response.json();
+    console.log(data); // Response from the server
+    } catch (error) {
+    console.error('Error:', error);
+    }
+    }
+    
+    sendData();*/
+    
+/*const carData = {
+  manufacturer: "Toyota",
+  model: "Camry",
+  price: 2000000,
+  warranty: "3 years",
+  speed: 200,
+  power: 180,
+  acceleration: 8,
+  fuelConsumption: 8,
+  package: "Premium",
+  year: 2021
+};
+
+fetch('https://example.com/submitApplication', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify(carData)
+})
+  .then(response => response.json())
+  .then(data => {
+    console.log('Application submitted:', data);
+  })
+  .catch(error => {
+    console.error('Error submitting application:', error);
+  });*/

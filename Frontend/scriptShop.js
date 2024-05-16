@@ -56,29 +56,20 @@ async function fetchData() {
 // Функция для отображения данных на странице
 async function renderProductCard() {
   try {
-    const productData = await fetchData();
-    // Далее ты можешь использовать полученные данные для создания карточки товара
-    // Например:
-    const productName = productData.name;
-    const productPrice = productData.price;
-    const productDescription = productData.description;
-    // Создание элементов для карточки товара
-    const productCardContainer = document.createElement('div');
-    productCardContainer.classList.add('product-card');
-    const productNameElement = document.createElement('h2');
-    productNameElement.textContent = productName;
-    const productPriceElement = document.createElement('p');
-    productPriceElement.textContent = `Цена: ${productPrice}`;
-    const productDescriptionElement = document.createElement('p');
-    productDescriptionElement.textContent = productDescription;
-    // Добавление элементов карточки товара к контейнеру
-    productCardContainer.appendChild(productNameElement);
-    productCardContainer.appendChild(productPriceElement);
-    productCardContainer.appendChild(productDescriptionElement);
-    // Добавление карточки товара на страницу
-    document.body.appendChild(productCardContainer);
-  } catch (error) {
-    console.error('Ошибка при отображении карточки товара:', error);
+  const productData = await fetchData();
+  const productName = productData.name;
+  const productPrice = productData.price;
+  const productDescription = productData.description;
+  const productCardHTML = `
+  <div class="product-card">
+    <h2>${productName}</h2>
+    <p>Цена: ${productPrice}</p>
+    <p>${productDescription}</p>
+  </div>
+`;
+document.body.innerHTML = productCardHTML;
+} catch (error) {
+  console.error('Ошибка при отображении карточки товара:', error);
   }
 }
 // Вызываем функцию для отображения карточки товара при загрузке страницы
