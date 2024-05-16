@@ -57,14 +57,20 @@ async function fetchData() {
 async function renderProductCard() {
   try {
   const productData = await fetchData();
-  const productName = productData.name;
+  const productManufactorer = productData.manufactorer;
+  const productModel = productData.model;
+  const productColor  = productData.color;
+  const productPackage  = productData.package;
+  const productYear = productData.year;
+  const productImage = productData.image;
   const productPrice = productData.price;
-  const productDescription = productData.description;
   const productCardHTML = `
   <div class="product-card">
-    <h2>${productName}</h2>
+    <h2>${productManufactorer + ' ' + productModel + ' ' + productYear}</h2>
+    <img src="${productImage}"></img>
+    <p>Цена: ${productPackage}</p>
+    <p>Цена: ${productColor}</p>
     <p>Цена: ${productPrice}</p>
-    <p>${productDescription}</p>
   </div>
 `;
 document.body.innerHTML = productCardHTML;

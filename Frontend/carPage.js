@@ -1,38 +1,41 @@
-// Функция для получения данных об автомобиле
-function fetchCarData() {
-    fetch('URL_сервера/api/car') // Замените URL_сервера на фактический URL вашего API
-        .then(response => response.json())
-        .then(data => {
-            updateCarPage(data);
-        })
-        .catch(error => console.error('Ошибка при получении данных:', error));
+// URL сервера, с которого нужно получить данные
+const apiUrl = 'https://example.com/api/product';
+// Функция для получения данных с сервера
+async function fetchCarData() {
+  try {
+    const response = await fetch(apiUrl);
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error('Ошибка при получении данных:', error);
+    throw error;
+  }
 }
 // Функция для обновления страницы данными об автомобиле
 function updateCarPage(carData) {
     // Обновление названия автомобиля и фотографии
-    document.querySelector('.car-image').src = carData.imageUrl;
+    document.querySelector('.car-image').src = carData.mainImage;
     document.querySelector('.car-details h2').textContent = carData.name;
-// Обновление технических характеристик
-document.querySelector('.car-details').innerHTML += `
-    <p>Производитель: ${carData.manufacturer}</p>
-    <p>Модель: ${carData.model}</p>
-    <p>Цена: ${carData.price.toLocaleString()}₽</p>
-    <p>Гарантия: ${carData.warranty}</p>
-    <p>Скорость: ${carData.speed} км/ч</p>
-    <p>Мощность: ${carData.power} л.с.</p>
-    <p>Разгон до 100 км/ч: ${carData.acceleration} сек</p>
-    <p>Расход топлива: ${carData.fuelConsumption} л/100км</p>
-    <p>Комплектация: ${carData.package}</p>
-    <p>Год выпуска: ${carData.year}</p>
-`;
-// Обновление остальных фотографий
-const imageGallery = document.querySelector('.image-gallery');
-carData.imageGallery.forEach(image => {
-    const img = document.createElement('img');
-    img.src = image;
-    img.classList.add('gallery-image');
-    imageGallery.appendChild(img);
-});
+    
+    // Обновление технических характеристик
+    document.querySelector('.car-details').innerHTML += `
+        <p>Производитель: ${carData.manufacturer}</p>
+        <p>Модель: ${carData.model}</p>
+        <p>Цена: ${carData.price.toLocaleString()}₽</p>
+        <p>Гарантия: ${carData.warranty}</p>
+        <p>Скорость: ${carData.speed} км/ч</p>
+        <p>Мощность: ${carData.power} л.с.</p>
+        <p>Разгон до 100 км/ч: ${carData.acceleration} сек</p>
+        <p>Расход топлива: ${carData.fuelConsumption} л/100км</p>
+        <p>Комплектация: ${carData.package}</p>
+        <p>Год выпуска: ${carData.year}</p>
+    `;
+    // Вставка всех изображений из списка Images
+    carData.Images.forEach(image => {
+        const imageElement = document.createElement('img');
+        imageElement.src = image;
+        document.querySelector('.car-images').appendChild(imageElement);
+    });
 }
 // Обработчик событий при загрузке страницы
 document.addEventListener('DOMContentLoaded', function() {
