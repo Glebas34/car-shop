@@ -23,9 +23,17 @@ builder.Services.AddReverseProxy()
         })
     .LoadFromConfig(builder.Configuration.GetSection("ReverseProxy"));
 
+builder.Services.AddCors();
+
 var app = builder.Build();
 
 //app.UseHttpsRedirection();
+
+app.UseCors(builder =>
+    builder.AllowAnyOrigin()
+        .AllowAnyHeader()
+        .AllowAnyMethod()
+);
 
 app.MapReverseProxy();
 
