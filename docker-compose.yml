@@ -1,6 +1,16 @@
 version: '3.9'
 
 services:
+  web:
+    image: img-static-site-example
+    build:
+      context: .
+      dockerfile: Frontend/Dockerfile
+    container_name: my-static-site
+    restart: always
+    ports:
+      - "8080:80"
+  
   car-page-service:
     image: ${DOCKER_REGISTRY-}car-page-service
     container_name:  car-page-service
