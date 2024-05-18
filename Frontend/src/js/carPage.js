@@ -82,7 +82,7 @@ phoneInput.addEventListener('input', function(event) {
 async function sendData(fioInput,phoneInput,carPageId ) {
     try {
     const url =  apiUrl + '/requisition-service/Requisition';
-    const response = await fetch('https://example.com/submit-application', {
+    const response = await fetch(url, {
     method: 'POST',
     headers: {
     'Content-Type': 'application/json'

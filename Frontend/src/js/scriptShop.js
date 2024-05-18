@@ -73,6 +73,17 @@ function displayProducts() {
 document.addEventListener('DOMContentLoaded', function() {
 displayProducts();
 });
+function renderOption(brand) {
+  const renderHTML =`
+  <option>${brand.value}</>
+  `;
+}
+function displayOptions() {
+  let keys = Object.keys(carModels);
+  const container = document.getElementById('select-style');
+  container.innerHTML = keys.map(renderProductCard).join('');
+}
+displayOptions();
 // Функция для отображения данных на странице
 function renderProductCard(productData) {
   try {
