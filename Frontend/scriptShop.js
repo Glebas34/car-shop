@@ -1,3 +1,10 @@
+let cards;
+async function init() {
+  cards = await fetchData(30000000);
+  // Дальнейшие действия с переменной 'cards'
+}
+init();
+const apiUrl = 'https://localhost:5053';
 // Объект с моделями автомобилей по маркам
 const carModels = {
   porsche: ['Cayenne', '911', 'Panamera'],
@@ -27,7 +34,9 @@ function updatePriceValue(value) {
 function searchCars() {
   const selectedBrand = document.getElementById('carBrand').value;
   const selectedModel = document.getElementById('carModel').value;
-  const maxPrice = document.getElementById('priceRange').value;
+  const maxPrice = +document.getElementById('priceRange').value;
+  cards = fetchData(maxPrice,selectedBrand,selectedModel);
+  displayProducts();
   // Здесь можно добавить логику для фильтрации автомобилей по выбранным параметрам
   // Например, можно показывать результаты поиска или фильтровать данные на сервере
   filterCars(selectedBrand, selectedModel, maxPrice);
@@ -40,24 +49,31 @@ function getModelByBrand(id) {
     resolve([]);
   });
 }
-// URL сервера, с которого нужно получить данные
-const apiUrl = 'https://example.com/api/product';
 // Функция для получения данных с сервера
-async function fetchData() {
+async function fetchData(price,brand='',model='') {
   try {
-    const response = await fetch(apiUrl);
+    const url = `http://localhost:4043/card-service/Card?manufactorer=${brand}&model=${model}&price=${price}`;
+    const response = await fetch(url);
     const data = await response.json();
+    console.log('Данные получены:', data);
     return data;
   } catch (error) {
     console.error('Ошибка при получении данных:', error);
     throw error;
   }
 }
+// Функция для отображения всех карточек товаров
+function displayProducts() {
+  const container = document.getElementById('car-container');
+  container.innerHTML = cards.map(renderProductCard).join('');
+}
+document.addEventListener('DOMContentLoaded', function() {
+displayProducts();
+});
 // Функция для отображения данных на странице
-async function renderProductCard() {
+function renderProductCard(productData) {
   try {
-  const productData = await fetchData();
-  const productManufactorer = productData.manufactorer;
+  const productManufacturer = productData.manufacturer;
   const productModel = productData.model;
   const productColor  = productData.color;
   const productPackage  = productData.package;
@@ -66,11 +82,16 @@ async function renderProductCard() {
   const productPrice = productData.price;
   const productCardHTML = `
   <div class="product-card">
-    <h2>${productManufactorer + ' ' + productModel + ' ' + productYear}</h2>
+  <a href="carPage.html?id=${productData.carPageId}">
+    <h2>${productManufacturer + ' ' + productModel + ' ' + productYear}</h2>
     <img src="${productImage}"></img>
-    <p>Цена: ${productPackage}</p>
-    <p>Цена: ${productColor}</p>
+    <p>Комплектация: ${productPackage}</p>
+    <p>Цвет: ${productColor}</p>
     <p>Цена: ${productPrice}</p>
+    </a>
+    <div class="card__button">
+    <button class="order-button" onclick="event.stopPropagation(); openOrderModal();">Заказать</button>
+    </div>
   </div>
 `;
 document.body.innerHTML = productCardHTML;
@@ -78,8 +99,6 @@ document.body.innerHTML = productCardHTML;
   console.error('Ошибка при отображении карточки товара:', error);
   }
 }
-// Вызываем функцию для отображения карточки товара при загрузке страницы
-renderProductCard();
 // Добавление обработчиков событий
 document.getElementById('carBrand').addEventListener('change', populateModels);
 document.getElementById('priceRange').addEventListener('input', function() {

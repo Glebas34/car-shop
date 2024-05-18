@@ -32,35 +32,13 @@
       <div class="price-range-container">
         <span class="price-label">Цена:</span>
         <span class="price-value" id="priceValue">0 ₽</span>
-        <input type="range" class="price-range" id="priceRange" min="0" max="30000000" value="0" oninput="updatePriceValue(this.value)">
+        <input type="range" class="price-range" id="priceRange" min="0" max="30000000" value="30000000" oninput="updatePriceValue(this.value)">
       </div>
       <button class="search-button" onclick="searchCars()">Найти</button>
   </div>
   </section>
-  <template id="car-card-template">
-    <div class="product-card" onclick="redirectToCarPage(this)">
-        <div class="product-image">
-            <img src="" alt="Изображение автомобиля">
-        </div>
-        <div class="product-details">
-            <h2>Название автомобиля</h2>
-            <p>Комплектация</p>
-            <p>Характеристики</p>
-            <p class="product-price">Цена</p>
-            <button class="order-button" onclick="event.stopPropagation(); openOrderModal();">Заказать</button>
-        </div>
-    </div>
-</template>
-<p id="output"></p>
-<script>
-  const params = new Proxy(new URLSearchParams(window.location.search), {
-    get: (searchParams, prop) => searchParams.get(prop),
-  });
-  let value = params.key; // "some_value"
-  console.log(value);
-  // Предполагаем, что у вас есть элемент p с id="output"
-  document.getElementById('output').textContent = value;
-  </script>
+  <div class="car-container">
+  </div>
 <!-- Модальное окно для заказа -->
 <div id="orderModal" class="modal">
   <div class="modal-content">

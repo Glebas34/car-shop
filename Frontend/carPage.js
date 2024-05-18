@@ -1,9 +1,10 @@
 // URL сервера, с которого нужно получить данные
-const apiUrl = 'https://example.com/api/product';
+const apiUrl = 'https://localhost:5053';
 // Функция для получения данных с сервера
 async function fetchCarData() {
   try {
-    const response = await fetch(apiUrl);
+    const url = apiUrl + '/car-page-service/CarPage/${Id}';
+    const response = await fetch(url);
     const data = await response.json();
     return data;
   } catch (error) {
@@ -16,7 +17,6 @@ function updateCarPage(carData) {
     // Обновление названия автомобиля и фотографии
     document.querySelector('.car-image').src = carData.mainImage;
     document.querySelector('.car-details h2').textContent = carData.name;
-    
     // Обновление технических характеристик
     document.querySelector('.car-details').innerHTML += `
         <p>Производитель: ${carData.manufacturer}</p>
@@ -39,15 +39,23 @@ function updateCarPage(carData) {
 }
 // Обработчик событий при загрузке страницы
 document.addEventListener('DOMContentLoaded', function() {
-    // Вызов функции для получения данных об автомобиле
-    fetchCarData();
-
-    // Получение элементов формы
-    const form = document.querySelector('form');
-    const submitButton = form.querySelector('.submit-btn');
-    const fioInput = form.querySelector('input[type="text"]');
-    const phoneInput = form.querySelector('input[type="tel"]');
-
+  const params = new Proxy(new URLSearchParams(window.location.search), {
+    get: (searchParams, prop) => searchParams.get(prop),
+  });
+  let carId = params.id;
+  const carData = fetchCarData(carId);
+  updateCarPage(carData);
+});
+  const form = document.querySelector('form');
+  const submitButton = form.querySelector('.submit-btn');
+  const fioInput = form.querySelector('input[type="text"]');
+  const phoneInput = form.querySelector('input[type="tel"]');
+// Обработчик ввода телефонного номера
+phoneInput.addEventListener('input', function(event) {
+  const input = event.target.value.replace(/\D/g, '').substring(0, 11);
+  const phoneNumber = input.replace(/(\d{1})(\d{3})(\d{3})(\d{2})(\d{2})/, "+7 (\$2) \$3-\$4-\$5");
+  event.target.value = phoneNumber;
+});
     // Обработчик клика по кнопке отправки формы
     submitButton.addEventListener('click', function(event) {
         event.preventDefault();
@@ -68,35 +76,22 @@ document.addEventListener('DOMContentLoaded', function() {
         }
         // Если все данные введены корректно
         alert('Спасибо за заказ! Мы скоро свяжемся с вами.');
+        sendData(fioInput.value.trim(),phoneInput.value.trim(),carData.id);
         form.reset();
     });
-
-    // Обработчик ввода телефонного номера
-    phoneInput.addEventListener('input', function(event) {
-        const input = event.target.value.replace(/\D/g, '').substring(0, 11);
-        const phoneNumber = input.replace(/(\d{1})(\d{3})(\d{3})(\d{2})(\d{2})/, "+7 (\$2) \$3-\$4-\$5");
-        event.target.value = phoneNumber;
-    });
-});
-/*const sendData = async () => {
+async function sendData(fioInput,phoneInput,carPageId ) {
     try {
+    const url =  apiUrl + '/requisition-service/Requisition';
     const response = await fetch('https://example.com/submit-application', {
     method: 'POST',
     headers: {
     'Content-Type': 'application/json'
     },
     body: JSON.stringify({
-    manufacturer: carData.manufacturer,
-    model: carData.model,
-    price: carData.price,
-    warranty: carData.warranty,
-    speed: carData.speed,
-    power: carData.power,
-    acceleration: carData.acceleration,
-    fuelConsumption: carData.fuelConsumption,
-    package: carData.package,
-    year: carData.year
-    })
+    fullName: fioInput,
+    phoneNumber: phoneInput,
+    carPageId: carPageId,
+    }) 
     });
     const data = await response.json();
     console.log(data); // Response from the server
@@ -104,33 +99,3 @@ document.addEventListener('DOMContentLoaded', function() {
     console.error('Error:', error);
     }
     }
-    
-    sendData();*/
-    
-/*const carData = {
-  manufacturer: "Toyota",
-  model: "Camry",
-  price: 2000000,
-  warranty: "3 years",
-  speed: 200,
-  power: 180,
-  acceleration: 8,
-  fuelConsumption: 8,
-  package: "Premium",
-  year: 2021
-};
-
-fetch('https://example.com/submitApplication', {
-  method: 'POST',
-  headers: {
-    'Content-Type': 'application/json'
-  },
-  body: JSON.stringify(carData)
-})
-  .then(response => response.json())
-  .then(data => {
-    console.log('Application submitted:', data);
-  })
-  .catch(error => {
-    console.error('Error submitting application:', error);
-  });*/
