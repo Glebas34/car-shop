@@ -1,16 +1,19 @@
 let cards;
+var carModels = {};
 async function init() {
   cards = await fetchData(30000000);
+  for(let i = 0; i<cards.length(); i++)
+    {
+      if (!(cards[i].manufacturer in carModels)){
+        carModels[cards[i].manufacturer] = [];
+      }
+      carModels[cards[i].manufacturer].push(cards[i].model);
+    }
   // Дальнейшие действия с переменной 'cards'
 }
 init();
 const apiUrl = 'https://localhost:5053';
 // Объект с моделями автомобилей по маркам
-const carModels = {
-  porsche: ['Cayenne', '911', 'Panamera'],
-  bmw: ['X5', 'M5', 'i8'],
-  mercedes: ['S-Class', 'E-Class', 'GLC']
-};
 // Функция для заполнения моделей автомобилей в зависимости от выбранной марки
 function populateModels() {
   const brandSelect = document.getElementById('carBrand');
