@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/adminStyles.css">
+    <title>Административная панель</title>
+</head>
+<body>
+    <!-- Секция "Актуальные предложения" -->
+    <div class="section-container">
+        <h1>Актуальные предложения</h1>
+        <!-- Кнопки для управления актуальными предложениями -->
+        <button class="main__form-button" id="addOfferBtn">Добавить предложение</button>
+        <button class="main__form-button" id="removeOfferBtn">Удалить предложение</button>
+
+        <!-- Модальное окно для добавления предложения -->
+        <div id="addOfferModal" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <!-- Поле для ввода ID нового предложения -->
+                <input class="main__form-input" type="text" id="offerIdInput" placeholder="ID предложения">
+                <!-- Кнопки для отправки и закрытия модального окна -->
+                <button class="main__form-button" id="submitOfferBtn">Добавить</button>
+                <button class="main__form-button" id="closeOfferBtn">Закрыть</button>
+            </div>
+        </div>
+        <!-- Модальное окно для удаления предложения -->
+        <div id="removeOfferModal" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <!-- Поле для ввода ID удаляемого предложения -->
+                <input class="main__form-input" type="text" id="offerIdInputRemove" placeholder="ID предложения">
+                <!-- Кнопки для отправки и закрытия модального окна -->
+                <button class="main__form-button" id="submitOfferBtnRemove">Удалить</button>
+                <button class="main__form-button" id="closeOfferBtnRemove">Закрыть</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Секция "Каталог" -->
+    <div class="section-container">
+        <h1>Каталог</h1>
+        <!-- Кнопки для управления каталогом автомобилей -->
+        <button class="main__form-button" id="addCarBtn">Добавить автомобиль</button>
+        <button class="main__form-button" id="removeCarBtn">Удалить автомобиль</button>
+
+        <!-- Модальное окно для добавления автомобиля -->
+        <div id="addModal" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <!-- Поля для ввода информации о новом автомобиле -->
+                <input class="main__form-input" type="text" id="manufacturerInput" placeholder="Производитель">
+                <input class="main__form-input" type="text" id="modelInput" placeholder="Модель">
+                <input class="main__form-input" type="number" id="priceInput" placeholder="Цена">
+                <input class="main__form-input" type="text" id="colorInput" placeholder="Цвет">
+                <input class="main__form-input" type="text" id="warrantyInput" placeholder="Гарантия">
+                <input class="main__form-input" type="text" id="speedInput" placeholder="Скорость">
+                <input class="main__form-input" type="text" id="powerInput" placeholder="Мощность">
+                <input class="main__form-input" type="text" id="accelerationInput" placeholder="Ускорение">
+                <input class="main__form-input" type="text" id="fuelConsumptionInput" placeholder="Расход топлива">
+                <input class="main__form-input" type="text" id="packageInput" placeholder="Пакет">
+                <input class="main__form-input" type="number" id="yearInput" placeholder="Год выпуска">
+                <!-- Кнопки для отправки и закрытия модального окна -->
+                <button class="main__form-button" id="submitCarBtn">Добавить</button>
+                <button class="main__form-button" id="closeCarBtn">Закрыть</button>
+            </div>
+        </div>
+
+        <!-- Модальное окно для удаления автомобиля -->
+        <div id="removeModal" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <!-- Поле для ввода ID удаляемого автомобиля -->
+                <input class="main__form-input" type="number" id="carIdInputRemove" placeholder="ID автомобиля">
+                <!-- Кнопки для отправки и закрытия модального окна -->
+                <button class="main__form-button" id="submitCarBtnRemove">Удалить</button>
+                <button class="main__form-button" id="closeCarBtnRemove">Закрыть</button>
+            </div>
+        </div>
+    </div>
+    <script src="js/admin.js"></script>
+</body>
+</html>
