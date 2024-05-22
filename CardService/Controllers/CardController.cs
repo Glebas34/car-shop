@@ -31,19 +31,19 @@ namespace CardService.Controllers
             return Ok(cardDto);
         }
 
+        [Route("Filtered")]
         [HttpGet]
-        public async Task<IActionResult> GetAllAsync(string manufacturer="", string model="", decimal maxPrice=-1)
+        public async Task<IActionResult> GetFilteredAsync(decimal maxPrice,string manufacturer="", string model="")
         {
-            var cardDtos = (await _cardRepository.
-                GetAllAsync(c=>(c.Manufacturer==manufacturer||manufacturer=="")&&(c.Model==model||model=="")&&(c.Price<=maxPrice||maxPrice==-1))).
-                Select(c => c.AsDto());
+            var cardDtos = await _cardRepository.
+                GetAllAsync(c=>(c.Manufacturer==manufacturer||manufacturer=="")&&(c.Model==model||model=="")&&(c.Price<=maxPrice));
 
             return Ok(cardDtos);
         }
 
-        [Route("FullData")]
+
         [HttpGet]
-        public async Task<IActionResult> GetAllWithFullDataAsync()
+        public async Task<IActionResult> GetAllAsync()
         {
             var cards = await _cardRepository.GetAllAsync();
 
