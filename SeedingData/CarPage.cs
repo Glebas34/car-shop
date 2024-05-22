@@ -1,4 +1,4 @@
-namespace CarPageService.Entities
+namespace SeedingData.Entities
 {
     public class CarPage
     {
@@ -14,7 +14,7 @@ namespace CarPageService.Entities
         public string FuelConsumption {get;set;}
         public string Package {get;set;}
         public int Year {get;set;}
-        public string MainImage {get;set;} = "image-service/Image/MainImage";
+        public string MainImage {get;set;}
         public List<string> Images {get;set;}
     }
 }

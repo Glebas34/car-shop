@@ -8,6 +8,6 @@ namespace CardService.Entities{
         public string Package {get;set;}
         public string Color {get;set;}
         public int Year {get;set;}
-        public string? Image {get;set;}
+        public string Image {get;set;}
     }
 }

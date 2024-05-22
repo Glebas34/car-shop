@@ -1,6 +1,7 @@
 using Contracts;
 using MassTransit;
 using ImageService.Interfaces;
+using ImageService.Services;
 
 namespace ImageService.Consumers
 {
@@ -10,11 +11,11 @@ namespace ImageService.Consumers
         private readonly IImageRepository _imageRepository;
         private readonly IStorageServiceCreator _storageServiceCreator;
 
-        public CarPageDeletedConsumer(ICarPageRepository carPageRepository, IImageRepository imageRepository, IStorageServiceCreator storageServiceCreator)
+        public CarPageDeletedConsumer(ICarPageRepository carPageRepository, IImageRepository imageRepository)
         {
             _carPageRepository = carPageRepository;
             _imageRepository = imageRepository;
-            _storageServiceCreator = storageServiceCreator;
+            _storageServiceCreator = new StorageServiceCreator();
         }
         
         public async Task Consume(ConsumeContext<CarPageDeleted> context)

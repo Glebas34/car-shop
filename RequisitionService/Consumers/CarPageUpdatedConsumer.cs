@@ -28,16 +28,21 @@ namespace RequisitionService.Consumers
             existingCarPage.Package = message.Package;
             existingCarPage.Color = message.Color;
             existingCarPage.Year = message.Year;
-
-            existingRequisition.Manufacturer = existingCarPage.Manufacturer;
-            existingRequisition.Model = existingCarPage.Model;
-            existingRequisition.Price = existingCarPage.Price;
-            existingRequisition.Package = existingCarPage.Package;
-            existingRequisition.Color = existingCarPage.Color;
-            existingRequisition.Year = existingCarPage.Year;
+            existingCarPage.Image = message.Image;
 
             await _carPageRepository.UpdateAsync(existingCarPage);
-            await _requisitionRepository.UpdateAsync(existingRequisition);
+
+            if(existingRequisition!=null)
+            {
+                existingRequisition.Manufacturer = existingCarPage.Manufacturer;
+                existingRequisition.Model = existingCarPage.Model;
+                existingRequisition.Price = existingCarPage.Price;
+                existingRequisition.Package = existingCarPage.Package;
+                existingRequisition.Color = existingCarPage.Color;
+                existingRequisition.Year = existingCarPage.Year;
+
+                await _requisitionRepository.UpdateAsync(existingRequisition);
+            }
         }
     }
 }

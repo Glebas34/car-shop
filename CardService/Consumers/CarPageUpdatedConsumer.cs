@@ -30,16 +30,20 @@ namespace CardService.Consumers
             existingCarPage.Year = message.Year;
             existingCarPage.Image = message.Image;
 
-            existingCard.Manufacturer = existingCarPage.Manufacturer;
-            existingCard.Model = existingCarPage.Model;
-            existingCard.Price = existingCard.Price;
-            existingCard.Package = existingCarPage.Package;
-            existingCard.Color = existingCarPage.Color;
-            existingCard.Year = existingCarPage.Year;
-            existingCard.Image = existingCarPage.Image;
-
             await _carPageRepository.UpdateAsync(existingCarPage);
-            await _cardRepository.UpdateAsync(existingCard);
+
+            if(existingCard!=null)
+            {
+                existingCard.Manufacturer = existingCarPage.Manufacturer;
+                existingCard.Model = existingCarPage.Model;
+                existingCard.Price = existingCard.Price;
+                existingCard.Package = existingCarPage.Package;
+                existingCard.Color = existingCarPage.Color;
+                existingCard.Year = existingCarPage.Year;
+                existingCard.Image = existingCarPage.Image;
+
+                await _cardRepository.UpdateAsync(existingCard);
+            }
         }
     }
 }

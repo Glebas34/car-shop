@@ -3,9 +3,7 @@ using ImageService.Interfaces;
 using ImageService.Repositories;
 using ImageService.Database;
 using MassTransit;
-using Contracts;
 using ImageService.Consumers;
-using ImageService.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,8 +12,6 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<AppDbContext>(options => options.UseNpgsql(builder.Configuration.GetConnectionString("PostgreSQL")));
 builder.Services.AddControllers();
 builder.Services.AddScoped<IImageRepository, ImageRepository>();
-builder.Services.AddScoped<IStorageServiceCreator, StorageServiceCreator>();
-builder.Services.AddScoped<IStorageService, StorageService>();
 builder.Services.AddScoped<ICarPageRepository, CarPageRepository>();
 builder.Services.AddMassTransit(busConfigurator=>
 {

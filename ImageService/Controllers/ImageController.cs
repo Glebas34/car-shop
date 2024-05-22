@@ -1,11 +1,9 @@
 using ImageService.Interfaces;
 using Microsoft.AspNetCore.Mvc;
-using ImageService.Entities;
 using ImageService.Dtos;
-using Firebase.Auth;
-using Firebase.Storage;
 using MassTransit;
 using Contracts;
+using ImageService.Services;
 
 namespace ImageService.Controllers
 {
@@ -18,12 +16,12 @@ namespace ImageService.Controllers
         private readonly IPublishEndpoint _publishEndpoint;
         private readonly IStorageServiceCreator _storageServiceCreator;
 
-        public ImageController(IImageRepository imageRepository, ICarPageRepository carPageRepository, IPublishEndpoint publishEndpoint, IStorageServiceCreator storageServiceCreator)
+        public ImageController(IImageRepository imageRepository, ICarPageRepository carPageRepository, IPublishEndpoint publishEndpoint)
         {
             _imageRepository = imageRepository;
             _carPageRepository = carPageRepository;
             _publishEndpoint = publishEndpoint;
-            _storageServiceCreator = storageServiceCreator;
+            _storageServiceCreator = new StorageServiceCreator();
         }
 
         [HttpGet("{carPageId}")]

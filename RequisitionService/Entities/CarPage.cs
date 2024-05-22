@@ -7,6 +7,6 @@ namespace RequisitionService.Entities{
         public string Color {get;set;}
         public string Package {get;set;}
         public int Year {get;set;}
-        public string? Image {get;set;}
+        public string Image {get;set;}
     }
 }

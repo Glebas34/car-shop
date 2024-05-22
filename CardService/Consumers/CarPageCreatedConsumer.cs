@@ -33,7 +33,8 @@ namespace CardService.Consumers
                 Price = message.Price,
                 Package = message.Package,
                 Color = message.Color,
-                Year = message.Year
+                Year = message.Year,
+                Image = message.Image
             };
 
             await _carPageRepository.CreateAsync(carPage);

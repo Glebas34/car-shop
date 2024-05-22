@@ -71,7 +71,8 @@ namespace CarPageService.Controllers
                 Price = carPage.Price,
                 Package = carPage.Package,
                 Color = carPage.Color,
-                Year = carPage.Year
+                Year = carPage.Year,
+                Image = carPage.MainImage
             });
 
             return Ok();
@@ -109,7 +110,8 @@ namespace CarPageService.Controllers
                 Price = existingCarPage.Price,
                 Package = existingCarPage.Package,
                 Color = existingCarPage.Color,
-                Year = existingCarPage.Year
+                Year = existingCarPage.Year,
+                Image = existingCarPage.MainImage
             });
 
             return NoContent();

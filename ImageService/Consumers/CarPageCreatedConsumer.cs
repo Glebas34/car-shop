@@ -28,12 +28,6 @@ namespace ImageService.Consumers
             carPage = new CarPage
             {
                 Id = message.Id,
-                Manufacturer = message.Manufacturer,
-                Model = message.Model,
-                Price = message.Price,
-                Package = message.Package,
-                Color = message.Color,
-                Year = message.Year
             };
 
             await _carPageRepository.CreateAsync(carPage);
