@@ -25,9 +25,9 @@ namespace CardService.Controllers
                 return BadRequest();
             }
 
-            var cardDto = (await _cardRepository.GetAsync(id)).AsDto();
+            var card = await _cardRepository.GetAsync(id);
 
-            return Ok(cardDto);
+            return Ok(card);
         }
 
         [Route("Filtered")]
