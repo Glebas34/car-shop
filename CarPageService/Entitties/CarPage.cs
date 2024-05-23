@@ -14,7 +14,7 @@ namespace CarPageService.Entities
         public string FuelConsumption {get;set;}
         public string Package {get;set;}
         public int Year {get;set;}
-        public string MainImage {get;set;} = "image-service/Image/MainImage";
+        public string MainImage {get;set;} = "https://firebasestorage.googleapis.com/v0/b/car-shop-e3217.appspot.com/o/CarImages%2Fdefault.jpg?alt=media&token=3a120b4c-30f8-4518-8444-c6e752b6e00b";
         public List<string> Images {get;set;}
     }
 }
