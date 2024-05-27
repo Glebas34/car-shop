@@ -1,31 +1,47 @@
-let cards;
+let cards = [];
 var carModels = {};
 async function init() {
-  cards = await fetchData(30000000);
-  for(let i = 0; i<cards.length(); i++)
-    {
-      if (!(cards[i].manufacturer in carModels)){
+  try {
+    cards = await (await fetch(`http://localhost:4043/card-service/Card`)).json();
+    if (cards.length === 0) {
+      console.error('Массив cards пуст');
+      return;
+    }
+    console.log(cards);
+    for (let i = 0; i < cards.length; i++) {
+      if (!(cards[i].manufacturer in carModels)) {
         carModels[cards[i].manufacturer] = [];
       }
       carModels[cards[i].manufacturer].push(cards[i].model);
     }
-  // Дальнейшие действия с переменной 'cards'
+  } catch (error) {
+    console.error('Ошибка в функции init:', error);
+  }
 }
-init();
-const apiUrl = 'https://localhost:5053';
-// Объект с моделями автомобилей по маркам
-// Функция для заполнения моделей автомобилей в зависимости от выбранной марки
+// Вызовите init после определения всех функций, чтобы убедиться, что все они доступны
+document.addEventListener('DOMContentLoaded', function() {
+  init().then(() => {
+    displayProducts();
+    displayOptions();
+  });
+});
+// Проверяем, существует ли марка в объекте carModels и является ли она массивом
 function populateModels() {
   const brandSelect = document.getElementById('carBrand');
   const modelSelect = document.getElementById('carModel');
   const selectedBrand = brandSelect.value;
-  modelSelect.innerHTML = '';
-  carModels[selectedBrand].forEach(model => {
-    const option = document.createElement('option');
-    option.text = model;
-    option.value = model;
-    modelSelect.add(option); 
-  });
+  modelSelect.innerHTML = '<option selected disabled>Выберите модель</option>';
+  
+  if (carModels[selectedBrand] && Array.isArray(carModels[selectedBrand])) {
+    carModels[selectedBrand].forEach(model => {
+      const option = document.createElement('option');
+      option.text = model;
+      option.value = model;
+      modelSelect.add(option); 
+    });
+  } else {
+    console.error('Selected brand is not available or not an array');
+  }
 }
 // Функция для обновления отображаемой цены при изменении ползунка
 function updatePriceValue(value) {
@@ -33,29 +49,39 @@ function updatePriceValue(value) {
   document.getElementById('priceValue').textContent = formattedValue + ' ₽';
 }
 // Функция для фильтрации автомобилей
-function searchCars() {
+async function searchCars() {
   const selectedBrand = document.getElementById('carBrand').value;
   const selectedModel = document.getElementById('carModel').value;
   const maxPrice = +document.getElementById('priceRange').value;
-  cards = fetchData(maxPrice,selectedBrand,selectedModel);
+  cards = await fetchData(maxPrice,selectedBrand,selectedModel);
   displayProducts();
 }
-// Делаем элемент carModel недоступным при загрузке страницы
+// Получаем элемент carBrand и сохраняем его в переменной selectedBrand
+const selectedBrand = document.getElementById('carBrand');
+// Получаем элемент carModel и сохраняем его в переменной selectedModel
+const selectedModel = document.getElementById('carModel');
+// Изначально блокируем элемент carModel
 selectedModel.disabled = true;
 // Обработчик события на выбор элемента в carBrand
 selectedBrand.addEventListener('change', function() {
-  const selectedBrand = document.getElementById('carBrand').value;
-    if (selectedBrand !== '') {
-      selectedModel = carModels[selectedBrand];
-      selectedModel.disabled = false; // Разблокируем элемент carModel
-    } else {
-      selectedModel.disabled = true; // Блокируем элемент carModel
-    }
+  // Получаем выбранное значение из selectedBrand
+  const brandValue = selectedBrand.value;
+  if (brandValue !== '') {
+    // Получаем модели для выбранного бренда
+    const models = carModels[brandValue];
+    // Убедитесь, что selectedModel ссылается на DOM-элемент, а не на массив
+    selectedModel.disabled = false;
+    // Здесь вы можете обновить список моделей в selectedModel, например:
+    // selectedModel.innerHTML = models.map(model => `<option value="${model}">${model}</option>`).join('');
+  } else {
+    // Блокируем элемент carModel, если бренд не выбран
+    selectedModel.disabled = true;
+  }
 });
 // Функция для получения данных с сервера
 async function fetchData(price,brand='',model='') {
   try {
-    const url = `http://localhost:4043/card-service/Card?manufactorer=${brand}&model=${model}&price=${price}`;
+    const url = `http://localhost:4043/card-service/Card/Filtered?maxPrice=${price}&manufacturer=${brand}&model=${model}`;
     const response = await fetch(url);
     const data = await response.json();
     console.log('Данные получены:', data);
@@ -67,24 +93,24 @@ async function fetchData(price,brand='',model='') {
 }
 // Функция для отображения всех карточек товаров
 function displayProducts() {
-  const container = document.getElementById('car-container');
-  container.innerHTML = cards.map(renderProductCard).join('');
+  if (Array.isArray(cards)) {
+    const container = document.getElementById('car-container');
+    container.innerHTML = cards.map(renderProductCard).join('');
+  } else {
+    console.error('Cards is not defined or not an array');
+  }
 }
-document.addEventListener('DOMContentLoaded', function() {
-displayProducts();
-});
 function renderOption(value) {
   const renderHTML =`
-  <option>${value}</>
+  <option>${value}</option>
   `;
   return renderHTML;
 }
 function displayOptions() {
   let keys = Object.keys(carModels);
-  const container = document.getElementById('select-style');
-  container.innerHTML = keys.map(renderProductCard).join('');
+  const container = document.getElementById('carBrand');
+  container.innerHTML = '<option selected disabled>Выберите бренд</option>' + keys.map(renderOption).join('');
 }
-displayOptions();
 // Функция для отображения данных на странице
 function renderProductCard(productData) {
   try {
@@ -117,9 +143,9 @@ function renderProductCard(productData) {
 }
 // Добавление обработчиков событий
 document.getElementById('carBrand').addEventListener('change', populateModels);
-document.getElementById('priceRange').addEventListener('input', function() {
+document.getElementById('priceRange').addEventListener('input', async function() {
   updatePriceValue(this.value);
-  searchCars();
+  await searchCars();
 });
 populateModels();
 updatePriceValue(document.getElementById('priceRange').value);
