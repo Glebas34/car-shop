@@ -77,20 +77,38 @@ input[type=range] {
   transform: scale(0.95);
 }
 /* КАРТОЧКИ ТОВАРОВ */
-.product-container {
+#car-container {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
+  justify-content: space-between;
+  align-items: stretch;
+  margin: 150px; /* Уменьшение отрицательного маржина увеличит расстояние между карточками */
 }
+
 .product-card {
-  width: 300px;
+  width: calc(20% - 10px); /* Уменьшение ширины карточки */
+  margin: 5px; /* Уменьшение маржина для уменьшения расстояния между карточками */
   border: 1px solid #ccc;
-  border-radius: 5px;
-  padding: 10px;
-  margin: 10px;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+  padding: 10px; /* Добавление отступа внутри карточки */
+  position: relative;
+  padding-bottom: 60px; /* Достаточно отступа снизу для текста */
 }
-.product-image {
-  text-align: center;
+.product-card a {
+  color: black; /* Устанавливает цвет текста в черный */
+  text-decoration: none; /* Убирает подчеркивание текста */
+}
+.product-card a:hover {
+  text-decoration: none; /* Предотвращает появление подчеркивания при наведении */
+}
+#car-container img {
+  max-width: calc(100% - 20px); /* Уменьшение максимальной ширины изображения */
+  height: auto;
+  display: block;
+  margin: 0 auto;
+  border-radius: 15px;
 }
 .product-image img {
   max-width: 100%;
@@ -110,7 +128,14 @@ input[type=range] {
   border-radius: 5px;
   cursor: pointer;
   display: block;
-  margin-top: 10px;
+  margin: 10px auto; /* Центрирование кнопки */
+  transition: transform 0.3s ease; /* Анимация нажатия */
+  position: absolute;
+  bottom: 10px; /* Расстояние от нижнего края карточки */
+  left: 50%;
+}
+.order-button:active {
+  transform: scale(0.95); /* Уменьшение кнопки при нажатии */
 }
 .product-price {
   font-weight: bold;
@@ -154,4 +179,3 @@ input[type="tel"] {
     border: 1px solid #ccc;
     border-radius: 5px;
 }
-

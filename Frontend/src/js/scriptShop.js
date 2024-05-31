@@ -31,7 +31,6 @@ function populateModels() {
   const modelSelect = document.getElementById('carModel');
   const selectedBrand = brandSelect.value;
   modelSelect.innerHTML = '<option selected disabled>Выберите модель</option>';
-  
   if (carModels[selectedBrand] && Array.isArray(carModels[selectedBrand])) {
     carModels[selectedBrand].forEach(model => {
       const option = document.createElement('option');
@@ -128,10 +127,10 @@ function renderProductCard(productData) {
                   <img src="${productImage}"></img>
                   <p>Комплектация: ${productPackage}</p>
                   <p>Цвет: ${productColor}</p>
-                  <p>Цена: ${productPrice}</p>
+                  <p>Цена: ${productPrice}₽</p>
               </a>
               <div class="card__button">
-                  <button class="order-button" onclick="event.stopPropagation(); openOrderModal();">Заказать</button>
+                  <button class="order-button" onclick="openOrderModal('${productData.carPageId}');">Заказать</button>
               </div>
           </div>
       `;
@@ -150,8 +149,36 @@ document.getElementById('priceRange').addEventListener('input', async function()
 populateModels();
 updatePriceValue(document.getElementById('priceRange').value);
 //Модальное окно формы заказа
-function openOrderModal() {
-  document.getElementById('orderModal').style.display = 'block';
+function openOrderModal(carPageId) {
+  var modal = document.getElementById('orderModal');
+  modal.style.display = 'block';
+  var button = document.createElement('button');
+  button.setAttribute('type', 'submit');
+  button.setAttribute('value', 'Отправить');
+  button.setAttribute('onclick',`Submit('${carPageId}')`);
+  button.setAttribute('class','modal-button');
+  modal.appendChild(button);
+}
+async function Submit(carPageId) {
+  const form = document.getElementById('orderForm');
+  const fioInput = form.querySelector('input[name="fio"]');
+  const phoneInput = form.querySelector('input[name="phone"]');
+  if (fioInput.value.trim() === '') {
+      alert('Пожалуйста, заполните поле "ФИО"');
+      return;
+  }
+  if (phoneInput.value.trim() === '') {
+      alert('Пожалуйста, заполните поле "Телефон"');
+      return;
+  }
+  const phoneRegex = /^\+7 \(\d{3}\) \d{3}-\d{2}-\d{2}$/; 
+  if (!phoneRegex.test(phoneInput.value.trim())) {
+      alert('Пожалуйста, введите телефон в формате +7 (XXX) XXX-XX-XX');
+      return;
+  }
+  await sendData(fioInput, phoneInput, carPageId);
+  alert('Мы вам перезвоним');
+  form.reset();
 }
 function closeModal() {
   document.getElementById('orderModal').style.display = 'none';
@@ -163,30 +190,7 @@ document.getElementById('orderForm').onsubmit = function(event) {
   document.getElementById('orderForm').reset();
 };
 document.addEventListener("DOMContentLoaded", function() {
-  const form = document.querySelector('#orderForm');
-  const button = form.querySelector('input[type="submit"]');
-
-  button.addEventListener('click', function(event) {
-      event.preventDefault();
-      const fioInput = form.querySelector('input[name="fio"]');
-      const phoneInput = form.querySelector('input[name="phone"]');
-
-      if (fioInput.value.trim() === '') {
-          alert('Пожалуйста, заполните поле "ФИО"');
-          return;
-      }
-      if (phoneInput.value.trim() === '') {
-          alert('Пожалуйста, заполните поле "Телефон"');
-          return;
-      }
-      const phoneRegex = /^\+7 \(\d{3}\) \d{3}-\d{2}-\d{2}$/; 
-      if (!phoneRegex.test(phoneInput.value.trim())) {
-          alert('Пожалуйста, введите телефон в формате +7 (XXX) XXX-XX-XX');
-          return;
-      }
-      alert('Мы вам перезвоним');
-      form.reset();
-  }); 
+  const form = document.getElementById('orderForm');
   const phoneInput = form.querySelector('input[name="phone"]');
   phoneInput.addEventListener('input', function(event) {
       const input = event.target.value.replace(/\D/g, '').substring(0, 11);
@@ -194,3 +198,24 @@ document.addEventListener("DOMContentLoaded", function() {
       event.target.value = phoneNumber;
   });
 });
+async function sendData(fioInput, phoneInput, carPageId) {
+  try {
+    const apiUrl = 'http://localhost:4043'; // Укажите здесь ваш базовый URL
+    const url = apiUrl + '/requisition-service/Requisition';
+    const response = await fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        fullName: fioInput.value,
+        phoneNumber: phoneInput.value,
+        carPageId: carPageId // Убедитесь, что carPageId получен корректно
+      }) 
+    });
+    const data = await response.json();
+    console.log(data); // Response from the server
+  } catch (error) {
+    console.error('Error:', error);
+  }
+}
