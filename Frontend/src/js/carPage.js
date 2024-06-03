@@ -1,5 +1,6 @@
 // URL сервера, с которого нужно получить данные
 const apiUrl = 'http://localhost:4043';
+let carPageId;
 // Функция для получения данных с сервера
 function createModal(images, index) {
   const modal = document.createElement('div');
@@ -40,9 +41,9 @@ nextButton.onclick = () => changeImage(1);
   });
 }
 // Функция для получения данных с сервера
-async function fetchCarData(id) {
+async function fetchCarData() {
   try {
-    const url = apiUrl + `/car-page-service/CarPage/${id}`;
+    const url = apiUrl + `/car-page-service/CarPage/${carPageId}`;
     const response = await fetch(url);
     const data = await response.json();
     return data;
@@ -95,10 +96,10 @@ document.addEventListener('DOMContentLoaded', async function() {
   const params = new Proxy(new URLSearchParams(window.location.search), {
     get: (searchParams, prop) => searchParams.get(prop),
   });
-  let carId = params.id;
-  console.log(carId);
+  carPageId = params.id;
+  console.log(carPageId);
   try {
-    const carData = await fetchCarData(carId);
+    const carData = await fetchCarData();
     updateCarPage(carData);
   } catch (error) {
     console.error('Произошла ошибка при получении данных об автомобиле:', error);
@@ -134,10 +135,10 @@ submitButton.addEventListener('click', function(event) {
   }
   // Если все данные введены корректно
   alert('Спасибо за заказ! Мы скоро свяжемся с вами.');
-  sendData(fioInput.value.trim(),phoneInput.value.trim(),carData.id);
+  sendData(fioInput.value.trim(),phoneInput.value.trim());
   form.reset();
 });
-async function sendData(fioInput,phoneInput,carPageId ) {
+async function sendData(fioInput,phoneInput) {
   try {
   const url =  apiUrl + '/requisition-service/Requisition';
   const response = await fetch(url, {
