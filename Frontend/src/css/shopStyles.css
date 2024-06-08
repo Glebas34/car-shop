@@ -132,7 +132,7 @@ input[type=range] {
   transition: transform 0.3s ease; /* Анимация нажатия */
   position: absolute;
   bottom: 10px; /* Расстояние от нижнего края карточки */
-  left: 50%;
+  left: 35%;
 }
 .order-button:active {
   transform: scale(0.95); /* Уменьшение кнопки при нажатии */
@@ -142,40 +142,68 @@ input[type=range] {
 }
 /* Стили для модального окна */
 .modal {
-  display: none; /* Скрыто по умолчанию */
+  display: none;
+  align-items: center; /* Центрирование по вертикали */
+  justify-content: center; /* Центрирование по горизонтали */
   position: fixed;
-  z-index: 1;
-  left: 0;
   top: 0;
+  left: 0;
   width: 100%;
   height: 100%;
-  overflow: auto;
-  background-color: rgba(0,0,0,0.4);
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 2;
 }
 .modal-content {
-  background-color: #fefefe;
-  margin: 15% auto;
+  background-color: #fff;
   padding: 20px;
-  border: 1px solid #888;
-  width: 80%;
+  padding-bottom: 30px;
+  border-radius: 5px;
+  width: auto; 
+  max-width: 500px; /* Максимальная ширина для ограничения размера */
+  margin: auto; /* Автоматические отступы для центрирования */
 }
+/* Стили для кнопок */
+.modal-button {
+  display: block;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 10px 20px;
+  font-size: 16px;
+  color: #fff;
+  background-color: #333;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  outline: none;
+}
+
+.modal-button:active {
+  background-color: #333;
+}
+
 .close-button {
   color: #aaa;
   float: right;
   font-size: 28px;
   font-weight: bold;
 }
+
 .close-button:hover,
 .close-button:focus {
   color: black;
   text-decoration: none;
   cursor: pointer;
 }
+
+/* Стили для полей ввода */
 input[type="text"],
 input[type="tel"] {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+  width: calc(100% - 20px); /* Вычитаем padding */
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-sizing: border-box; /* Добавлено для корректного расчета ширины с padding */
 }

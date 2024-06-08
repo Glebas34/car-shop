@@ -54,7 +54,7 @@ async function fetchCarData() {
 }
 // Функция для обновления страницы данными об автомобиле
 function updateCarPage(carData) {
-     // Обновление названия автомобиля и фотографии
+  console.log(carData);
   const mainImageElement = document.querySelector('.car-image');
   mainImageElement.src = carData.mainImage;
   mainImageElement.addEventListener('click', () => {
@@ -62,7 +62,6 @@ function updateCarPage(carData) {
     createModal(images, 0);
   });
   document.querySelector('.car-details h2').textContent = carData.manufacturer + ' ' + carData.model;
-    // Обновление технических характеристик
     document.querySelector('.car-details').innerHTML += `
         <p>Производитель: ${carData.manufacturer}</p>
         <p>Модель: ${carData.model}</p>
