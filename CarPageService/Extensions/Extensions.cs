@@ -19,7 +19,9 @@ namespace CarPageService.Extensions
                 FuelConsumption = carPage.FuelConsumption,
                 Package = carPage.Package,
                 MainImage = carPage.MainImage,
-                Images = carPage.Images
+                Images = carPage.Images,
+                Year = carPage.Year,
+                Color = carPage.Color
             };
         }
     }
