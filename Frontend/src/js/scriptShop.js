@@ -7,7 +7,6 @@ document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('carBrand').addEventListener('change', populateModels);
     document.getElementById('priceRange').addEventListener('input', async function() {
       updatePriceValue(this.value);
-      await searchCars();
     });
     populateModels();
     updatePriceValue(document.getElementById('priceRange').value);
@@ -35,11 +34,11 @@ function populateModels() {
   const brandSelect = document.getElementById('carBrand');
   const modelSelect = document.getElementById('carModel');
   const selectedBrand = brandSelect.value;
-  modelSelect.innerHTML = '<option selected disabled>Выберите модель</option>';
+  modelSelect.innerHTML = '<option selected>Любая модель</option>';
   if (carModels[selectedBrand] && Array.isArray(carModels[selectedBrand])) {
     carModels[selectedBrand].forEach(model => {
       const option = document.createElement('option');
-      option.text = model;
+      option.text = model; 
       option.value = model;
       modelSelect.add(option); 
     });
@@ -52,8 +51,14 @@ function updatePriceValue(value) {
   document.getElementById('priceValue').textContent = formattedValue + ' ₽';
 }
 async function searchCars() {
-  const selectedBrand = document.getElementById('carBrand').value;
-  const selectedModel = document.getElementById('carModel').value;
+  let selectedBrand = document.getElementById('carBrand').value;
+  let selectedModel = document.getElementById('carModel').value;
+   if(selectedBrand === "Любой бренд"){
+    selectedBrand = "";
+   }
+   if (selectedModel=== "Любая модель"){
+    selectedModel = "";
+  }
   const maxPrice = +document.getElementById('priceRange').value;
   cards = await fetchData(maxPrice,selectedBrand,selectedModel);
   displayProducts();
@@ -99,7 +104,7 @@ function renderOption(value) {
 function displayOptions() {
   let keys = Object.keys(carModels);
   const container = document.getElementById('carBrand');
-  container.innerHTML = '<option selected disabled>Выберите бренд</option>' + keys.map(renderOption).join('');
+  container.innerHTML = '<option selected>Любой бренд</option>' + keys.map(renderOption).join('');
 }
 function renderProductCard(productData) {
   try {
@@ -130,11 +135,6 @@ function renderProductCard(productData) {
       return null;
   }
 }
-document.getElementById('carBrand').addEventListener('change', populateModels);
-document.getElementById('priceRange').addEventListener('input', async function() {
-  updatePriceValue(this.value);
-  await searchCars();
-});
 populateModels();
 updatePriceValue(document.getElementById('priceRange').value);
 function openOrderModal(carPageId) {
@@ -161,7 +161,6 @@ async function Submit(carPageId) {
       return;
   }
   await sendData(fioInput, phoneInput, carPageId);
-  alert('Мы вам перезвоним');
   form.reset();
 }
 function closeModal() {
