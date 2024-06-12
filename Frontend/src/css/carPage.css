@@ -34,10 +34,10 @@ nav ul li a:hover {
 }
 .car-container {
     display: grid;
-    grid-template-columns: 2fr 1fr; /* Размер колонок для главной фотографии и характеристик */
-    gap: 20px; /* Отступ между колонками */
+    grid-template-columns: 2fr 1fr;
+    gap: 20px;
     align-items: start;
-    max-width: 800px; /* Увеличиваем максимальную ширину контейнера */
+    max-width: 800px;
     margin: 20px auto;
     padding: 20px;
     background-color: #fff;
@@ -47,22 +47,22 @@ nav ul li a:hover {
 .car-image {
     width: 90%;
     height: auto;
-    grid-column: 1; /* Главное фото остается в первой колонке */
-    border-radius: 5px; /* Скругляем углы */
-    margin: auto; /* Центрируем изображение */
+    grid-column: 1;
+    border-radius: 5px;
+    margin: auto;
 }
 .car-details {
-    grid-column: 2; /* Характеристики будут во второй колонке */
+    grid-column: 2;
     position: sticky;
-    top: 0; /* Прикрепляем сверху */
+    top: 0;
     background-color: #333;
     color: white;
     padding: 20px;
     border-radius: 5px;
-    max-width: 300px; /* Фиксированная ширина для сайдбара с характеристиками */
+    max-width: 300px;
 }
 .car-images {
-    flex: 3; /* Занимает 3 части пространства */
+    flex: 3;
     display: flex;
     flex-wrap: wrap;
     gap: 5px;
@@ -70,16 +70,15 @@ nav ul li a:hover {
     max-width: 100%;
 }
 .modal-button {
-    position: absolute; /* Абсолютное позиционирование относительно модального окна */
-    left: 50%;          /* Смещение влево на 50% ширины модального окна */
-    bottom: 10px;       /* Отступ снизу */
-    transform: translateX(-50%); /* Смещение кнопки на 50% её ширины влево для центрирования */
+    position: absolute; 
+    left: 50%;
+    bottom: 10px;
+    transform: translateX(-50%);
   }  
-/* Стили для каждого дополнительного изображения */
 .car-images img {
-    width: 100px; /* Фиксированная ширина для изображений */
-    height: 100px; /* Высота автоматически подстроится, чтобы сохранить пропорции */
-    border-radius: 5px; /* Скругление углов */  
+    width: 100px;
+    height: 100px;
+    border-radius: 5px;
 }
 
 .car-details {
@@ -139,7 +138,6 @@ nav ul li a:hover {
 .submit-btn {
     transition: transform 0.1s ease;
 }
-/* Стили для модального окна и стрелок */
 .modal {
     position: fixed;
     top: 0;
@@ -150,30 +148,30 @@ nav ul li a:hover {
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 1000; /* Убедитесь, что модальное окно находится над другими элементами */
+    z-index: 1000;
   }
   
   .modal img {
     max-width: 90%;
     max-height: 90%;
-    object-fit: contain; /* Убедитесь, что изображения не искажаются */
+    object-fit: contain;
   }
   
   .modal button {
     background: none;
     border: none;
-    font-size: 2em; /* Увеличенный размер для лучшей видимости */
-    color: white; /* Цвет стрелок для контраста с фоном */
+    font-size: 2em;
+    color: white;
     cursor: pointer;
     position: absolute;
     top: 50%;
     transition: transform 0.1s ease;
   }
   .modal button:active {
-    transform: scale(0.9); /* Уменьшение размера стрелок при нажатии */
+    transform: scale(0.9);
   }
   .modal button:hover {
-    color: #ddd; /* Цвет стрелок при наведении */
+    color: #ddd;
   }
   
   .modal button:focus {

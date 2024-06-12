@@ -183,7 +183,7 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 async function sendData(fioInput, phoneInput, carPageId) {
   try {
-    const apiUrl = 'http://localhost:4043'; // Укажите здесь ваш базовый URL
+    const apiUrl = 'http://localhost:4043';
     const url = apiUrl + '/requisition-service/Requisition';
     const response = await fetch(url, {
       method: 'POST',
@@ -193,11 +193,11 @@ async function sendData(fioInput, phoneInput, carPageId) {
       body: JSON.stringify({
         fullName: fioInput.value,
         phoneNumber: phoneInput.value,
-        carPageId: carPageId // Убедитесь, что carPageId получен корректно
+        carPageId: carPageId
       }) 
     });
     const data = await response.json();
-    console.log(data); // Response from the server
+    console.log(data);
   } catch (error) {
     console.error('Error:', error);
   }

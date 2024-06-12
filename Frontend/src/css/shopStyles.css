@@ -43,10 +43,10 @@ input[type=range] {
   height: 20px;
   background-color: #333;
   cursor: pointer;
-  transition: transform 0.2s ease; /* добавляем анимацию при изменении transform */
+  transition: transform 0.2s ease;
 }  
 .price-range:hover::-webkit-slider-thumb {
-  transform: scale(1.2); /* увеличиваем размер при наведении */
+  transform: scale(1.2);
 } 
 .select-style {
   background-color: #333;
@@ -76,35 +76,34 @@ input[type=range] {
 .search-button:active {
   transform: scale(0.95);
 }
-/* КАРТОЧКИ ТОВАРОВ */
 #car-container {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
   align-items: stretch;
-  margin: 150px; /* Уменьшение отрицательного маржина увеличит расстояние между карточками */
+  margin: 150px;
 }
 
 .product-card {
-  width: calc(20% - 10px); /* Уменьшение ширины карточки */
-  margin: 5px; /* Уменьшение маржина для уменьшения расстояния между карточками */
+  width: calc(20% - 10px);
+  margin: 5px; 
   border: 1px solid #ccc;
   border-radius: 10px;
   overflow: hidden;
   box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-  padding: 10px; /* Добавление отступа внутри карточки */
+  padding: 10px;
   position: relative;
-  padding-bottom: 60px; /* Достаточно отступа снизу для текста */
+  padding-bottom: 60px;
 }
 .product-card a {
-  color: black; /* Устанавливает цвет текста в черный */
-  text-decoration: none; /* Убирает подчеркивание текста */
+  color: black;
+  text-decoration: none;
 }
 .product-card a:hover {
-  text-decoration: none; /* Предотвращает появление подчеркивания при наведении */
+  text-decoration: none;
 }
 #car-container img {
-  max-width: calc(100% - 20px); /* Уменьшение максимальной ширины изображения */
+  max-width: calc(100% - 20px);
   height: auto;
   display: block;
   margin: 0 auto;
@@ -128,23 +127,22 @@ input[type=range] {
   border-radius: 5px;
   cursor: pointer;
   display: block;
-  margin: 10px auto; /* Центрирование кнопки */
-  transition: transform 0.3s ease; /* Анимация нажатия */
+  margin: 10px auto;
+  transition: transform 0.3s ease;
   position: absolute;
-  bottom: 10px; /* Расстояние от нижнего края карточки */
+  bottom: 10px;
   left: 35%;
 }
 .order-button:active {
-  transform: scale(0.95); /* Уменьшение кнопки при нажатии */
+  transform: scale(0.95);
 }
 .product-price {
   font-weight: bold;
 }
-/* Стили для модального окна */
 .modal {
   display: none;
-  align-items: center; /* Центрирование по вертикали */
-  justify-content: center; /* Центрирование по горизонтали */
+  align-items: center;
+  justify-content: center;
   position: fixed;
   top: 0;
   left: 0;
@@ -159,10 +157,9 @@ input[type=range] {
   padding-bottom: 30px;
   border-radius: 5px;
   width: auto; 
-  max-width: 500px; /* Максимальная ширина для ограничения размера */
-  margin: auto; /* Автоматические отступы для центрирования */
+  max-width: 500px;
+  margin: auto;
 }
-/* Стили для кнопок */
 .modal-button {
   display: block;
   margin-top: 20px;
@@ -196,14 +193,12 @@ input[type=range] {
   text-decoration: none;
   cursor: pointer;
 }
-
-/* Стили для полей ввода */
 input[type="text"],
 input[type="tel"] {
-  width: calc(100% - 20px); /* Вычитаем padding */
+  width: calc(100% - 20px);
   padding: 10px;
   margin-bottom: 10px;
   border: 1px solid #ccc;
   border-radius: 5px;
-  box-sizing: border-box; /* Добавлено для корректного расчета ширины с padding */
+  box-sizing: border-box;
 }

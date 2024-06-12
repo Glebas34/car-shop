@@ -1,67 +1,49 @@
 document.addEventListener("DOMContentLoaded", function() {
-    // Получаем элементы модальных окон и кнопок
     const addOfferBtn = document.getElementById("addOfferBtn");
     const removeOfferBtn = document.getElementById("removeOfferBtn");
     const addCarBtn = document.getElementById("addCarBtn");
     const removeCarBtn = document.getElementById("removeCarBtn");
-
     const addOfferModal = document.getElementById("addOfferModal");
     const removeOfferModal = document.getElementById("removeOfferModal");
     const addModal = document.getElementById("addModal");
     const removeModal = document.getElementById("removeModal");
-
     const closeOfferBtn = document.getElementById("closeOfferBtn");
     const closeOfferBtnRemove = document.getElementById("closeOfferBtnRemove");
     const closeCarBtn = document.getElementById("closeCarBtn");
     const closeCarBtnRemove = document.getElementById("closeCarBtnRemove");
-
-    // Показываем модальное окно для добавления предложения
     addOfferBtn.addEventListener("click", function() {
         addOfferModal.style.display = "block";
     });
-
-    // Показываем модальное окно для удаления предложения
     removeOfferBtn.addEventListener("click", function() {
         removeOfferModal.style.display = "block";
     });
-
-    // Показываем модальное окно для добавления автомобиля каталога
     addCarBtn.addEventListener("click", function() {
         addModal.style.display = "block";
     });
-
-    // Показываем модальное окно для удаления автомобиля каталога
     removeCarBtn.addEventListener("click", function() {
         removeModal.style.display = "block";
     });
-
-    // Закрываем модальные окна при нажатии на кнопку "Закрыть"
     closeOfferBtn.addEventListener("click", function() {
         addOfferModal.style.display = "none";
     });
-
     closeOfferBtnRemove.addEventListener("click", function() {
         removeOfferModal.style.display = "none";
     });
-
     closeCarBtn.addEventListener("click", function() {
         addModal.style.display = "none";
     });
-
     closeCarBtnRemove.addEventListener("click", function() {
         removeModal.style.display = "none";
     });
-// Обработка добавления машины к актуальным предложениям
 addOfferBtn.addEventListener("click", function() {
-    const id = document.getElementById("idInput").value; // Получаем ID машины
+    const id = document.getElementById("idInput").value;
 
-    fetch(`/addOffer/${id}`, { // Отправляем запрос на сервер для добавления машины к актуальным предложениям по ID
+    fetch(`/addOffer/${id}`, {
         method: 'POST'
     })
     .then(response => {
         if (response.ok) {
             addOfferModal.style.display = "none";
-            // Очищаем поле ввода ID после успешного добавления 
             document.getElementById("idInput").value = "";
         } else {
             throw new Error('Ошибка при добавлении машины к актуальным предложениям');
@@ -72,17 +54,15 @@ addOfferBtn.addEventListener("click", function() {
         alert('Произошла ошибка при добавлении машины к актуальным предложениям. Пожалуйста, попробуйте снова.');
     });
 });
-// Обработка удаления машины из актуальных предложений
 removeOfferBtn.addEventListener("click", function() {
-    const id = document.getElementById("idInput").value; // Получаем ID машины
+    const id = document.getElementById("idInput").value;
 
-    fetch(`/removeOffer/${id}`, { // Отправляем запрос на сервер для удаления машины из актуальных предложений по ID
+    fetch(`/removeOffer/${id}`, {
         method: 'DELETE'
     })
     .then(response => {
         if (response.ok) {
             removeOfferModal.style.display = "none";
-            // Очищаем поле ввода ID после успешного удаления
             document.getElementById("idInput").value = "";
         } else {
             throw new Error('Ошибка при удалении машины из актуальных предложений');
@@ -93,7 +73,6 @@ removeOfferBtn.addEventListener("click", function() {
         alert('Произошла ошибка при удалении машины из актуальных предложений. Пожалуйста, попробуйте снова.');
     });
 });
-    // Обработка отправки формы для добавления машины в каталог
     const submitCarBtn = document.getElementById("submitCarBtn");
     submitCarBtn.addEventListener("click", function() {
         const manufacturer = document.getElementById("manufacturerInput").value;
@@ -107,7 +86,6 @@ removeOfferBtn.addEventListener("click", function() {
         const fuelConsumption = document.getElementById("fuelConsumptionInput").value;
         const package = document.getElementById("packageInput").value;
         const year = document.getElementById("yearInput").value;
-        
         const formData = new FormData();
         formData.append('manufacturer', manufacturer);
         formData.append('model', model);
@@ -120,7 +98,6 @@ removeOfferBtn.addEventListener("click", function() {
         formData.append('fuelConsumption', fuelConsumption);
         formData.append('package', package);
         formData.append('year', year);
-        
         fetch('/addCar', {
             method: 'POST',
             body: formData
@@ -128,7 +105,6 @@ removeOfferBtn.addEventListener("click", function() {
         .then(response => {
             if (response.ok) {
                 addModal.style.display = "none";
-                // Очищаем поля ввода после успешной отправки данных
                 document.getElementById("manufacturerInput").value = "";
                 document.getElementById("modelInput").value = "";
                 document.getElementById("priceInput").value = "";
@@ -148,8 +124,6 @@ removeOfferBtn.addEventListener("click", function() {
             console.error('Ошибка:', error);
             alert('Произошла ошибка при добавлении машины. Пожалуйста, попробуйте снова.');
         });
-
-    // Обработка отправки формы для удаления машины
     const submitCarBtnRemove = document.getElementById("submitCarBtnRemove");
     submitCarBtnRemove.addEventListener("click", function() {
         const carIdToRemove = document.getElementById("carIdInputRemove").value.trim();

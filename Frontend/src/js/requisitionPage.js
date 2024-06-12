@@ -2,7 +2,6 @@ async function fetchRequisitions() {
     const response = await fetch('http://localhost:4043/requisition-service/Requisition');
     const requisitions = await response.json();
     const requisitionList = document.getElementById('requisition-list');
-     // Создание и добавление заголовков колонок
   const header = document.createElement('div');
   header.classList.add('requisition-header');
   header.innerHTML = `
@@ -17,8 +16,6 @@ async function fetchRequisitions() {
     <div></div>
   `;
   requisitionList.appendChild(header);
-
-  // Добавление элементов заявок
   requisitions.forEach(req => {
     const reqElement = document.createElement('div');
     reqElement.classList.add('requisition');

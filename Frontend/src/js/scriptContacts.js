@@ -4,10 +4,8 @@ document.addEventListener("DOMContentLoaded", function() {
 
     button.addEventListener('click', function(event) {
         event.preventDefault();
-        // Проверка заполнения полей
         const fioInput = form.querySelector('input[name="fio"]');
         const phoneInput = form.querySelector('input[name="phone"]');
-
         if (fioInput.value.trim() === '') {
             alert('Пожалуйста, заполните поле "ФИО"');
             return;
@@ -16,13 +14,11 @@ document.addEventListener("DOMContentLoaded", function() {
             alert('Пожалуйста, заполните поле "Телефон"');
             return;
         }
-        // Проверка формата телефона
         const phoneRegex = /^\+7 \(\d{3}\) \d{3}-\d{2}-\d{2}$/;
         if (!phoneRegex.test(phoneInput.value.trim())) {
             alert('Пожалуйста, введите телефон в формате +7 (XXX) XXX-XX-XX');
             return;
         }
-        // Если все данные введены корректно
         alert('Мы вам перезвоним');
         form.reset();
     });

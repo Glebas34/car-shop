@@ -1,46 +1,32 @@
-// URL сервера, с которого нужно получить данные
 const apiUrl = 'http://localhost:4043';
 let carPageId;
-// Функция для получения данных с сервера
 function createModal(images, index) {
   const modal = document.createElement('div');
   modal.classList.add('modal');
-
-  // Создание кнопок для листания
 const prevButton = document.createElement('button');
 prevButton.textContent = '←';
 prevButton.classList.add('prev-button');
 prevButton.onclick = () => changeImage(-1);
-
 const nextButton = document.createElement('button');
 nextButton.textContent = '→';
 nextButton.classList.add('next-button');
 nextButton.onclick = () => changeImage(1);
-
-  // Создание изображения внутри модального окна
   const modalImage = document.createElement('img');
   modalImage.src = images[index];
   modal.appendChild(prevButton);
   modal.appendChild(modalImage);
   modal.appendChild(nextButton);
-
-  // Функция для смены изображения
   function changeImage(step) {
     index = (index + step + images.length) % images.length;
     modalImage.src = images[index];
   }
-  
-  // Добавление модального окна в body
   document.body.appendChild(modal);
-
-  // Обработчик клика для закрытия модального окна
   modal.addEventListener('click', (event) => {
     if (event.target === modal) {
       document.body.removeChild(modal);
     }
   });
 }
-// Функция для получения данных с сервера
 async function fetchCarData() {
   try {
     const url = apiUrl + `/car-page-service/CarPage/${carPageId}`;
@@ -52,7 +38,6 @@ async function fetchCarData() {
     throw error;
   }
 }
-// Функция для обновления страницы данными об автомобиле
 function updateCarPage(carData) {
   console.log(carData);
   const mainImageElement = document.querySelector('.car-image');
@@ -74,7 +59,6 @@ function updateCarPage(carData) {
         <p>Комплектация: ${carData.package}</p>
         <p>Год выпуска: ${carData.year}</p>
     `;
-    // Добавление обработчиков событий к дополнительным изображениям
   const carImagesContainer = document.querySelector('.car-images');
   if (carImagesContainer) {
     carData.images.forEach((image, index) => {
@@ -90,7 +74,6 @@ function updateCarPage(carData) {
     console.error('Элемент с классом .car-images не найден в DOM');
   }
 }
-// Обработчик событий при загрузке страницы
 document.addEventListener('DOMContentLoaded', async function() {
   const params = new Proxy(new URLSearchParams(window.location.search), {
     get: (searchParams, prop) => searchParams.get(prop),
@@ -108,16 +91,13 @@ document.addEventListener('DOMContentLoaded', async function() {
   const submitButton = form.querySelector('.submit-btn');
   const fioInput = form.querySelector('input[type="text"]');
   const phoneInput = form.querySelector('input[type="tel"]');
-// Обработчик ввода телефонного номера
 phoneInput.addEventListener('input', function(event) {
   const input = event.target.value.replace(/\D/g, '').substring(0, 11);
   const phoneNumber = input.replace(/(\d{1})(\d{3})(\d{3})(\d{2})(\d{2})/, "+7 (\$2) \$3-\$4-\$5");
   event.target.value = phoneNumber;
 });
-// Обработчик клика по кнопке отправки формы
 submitButton.addEventListener('click', function(event) {
   event.preventDefault();
-  // Проверка заполнения полей
   if (fioInput.value.trim() === '') {
       alert('Пожалуйста, заполните поле "ФИО"');
       return;
@@ -126,13 +106,11 @@ submitButton.addEventListener('click', function(event) {
       alert('Пожалуйста, заполните поле "Телефон"');
       return;
   }
-  // Проверка формата телефона
   const phoneRegex = /^\+7 \(\d{3}\) \d{3}-\d{2}-\d{2}$/;
   if (!phoneRegex.test(phoneInput.value.trim())) {
       alert('Пожалуйста, введите телефон в формате +7 (XXX) XXX-XX-XX');
       return;
   }
-  // Если все данные введены корректно
   alert('Спасибо за заказ! Мы скоро свяжемся с вами.');
   sendData(fioInput.value.trim(),phoneInput.value.trim());
   form.reset();
@@ -152,33 +130,23 @@ async function sendData(fioInput,phoneInput) {
   }) 
   });
   const data = await response.json();
-  console.log(data); // Response from the server
+  console.log(data);
   } catch (error) {
   console.error('Error:', error);
   }
 }
-//МОДАЛЬНОЕ ОКНО ЛИСТАНИЯ
-// Получение всех изображений и добавление обработчика клика
 document.querySelectorAll('.car-images img').forEach(image => {
   image.addEventListener('click', () => {
-      openModal(image.src); // Функция открытия модального окна
+      openModal(image.src);
   });
 });
-
-// Функция для открытия модального окна
 function openModal(src) {
   const modal = document.createElement('div');
   modal.classList.add('modal');
-
-  // Создание изображения внутри модального окна
   const modalImage = document.createElement('img');
   modalImage.src = src;
   modal.appendChild(modalImage);
-
-  // Добавление модального окна в body
   document.body.appendChild(modal);
-
-  // Обработчик клика для закрытия модального окна
   modal.addEventListener('click', () => {
       document.body.removeChild(modal);
   });
