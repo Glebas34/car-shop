@@ -55,7 +55,7 @@ namespace ImageService.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Post(CreateImage createImage)
+        public async Task<IActionResult> PostAsync(CreateImage createImage)
         {   
             var carPageId = createImage.CarPageId;
             var carPage = await _carPageRepository.GetAsync(carPageId);
@@ -76,7 +76,7 @@ namespace ImageService.Controllers
         }
 
         [HttpPost("MainImage")]
-        public async Task<IActionResult> PostMain(CreateImage createImage)
+        public async Task<IActionResult> PostMainAsync(CreateImage createImage)
         {   
             var carPageId = createImage.CarPageId;
             var carPage = await _carPageRepository.GetAsync(carPageId);
@@ -89,6 +89,15 @@ namespace ImageService.Controllers
             var storageService = await _storageServiceCreator.CreateStorageService();
             var image = await storageService.UploadAsync(createImage, carPageId, true);
 
+            var mainImage = await _imageRepository.GetAsync(i => i.CarPageId == carPageId && i.IsMain);
+
+            if (mainImage != null)
+            {
+                await _imageRepository.DeleteAsync(mainImage.Id);
+
+                await _publishEndpoint.Publish(new ImageDeleted{Id = mainImage.Id, IsMain = mainImage.IsMain, CarPageId = mainImage.CarPageId});
+            }
+
             await _imageRepository.CreateAsync(image);
 
             await _publishEndpoint.Publish(new ImageCreated{Id = image.Id, Url = image.Url, CarPageId = carPageId, IsMain = true});
@@ -97,7 +106,7 @@ namespace ImageService.Controllers
         }
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> Delete(Guid id)
+        public async Task<IActionResult> DeleteAsync(Guid id)
         {
             var image = await _imageRepository.GetAsync(id);
 
