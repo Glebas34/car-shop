@@ -95,6 +95,8 @@ namespace ImageService.Controllers
             {
                 await _imageRepository.DeleteAsync(mainImage.Id);
 
+                await storageService.DeleteAsync(mainImage.Root);
+
                 await _publishEndpoint.Publish(new ImageDeleted{Id = mainImage.Id, IsMain = mainImage.IsMain, CarPageId = mainImage.CarPageId});
             }
 

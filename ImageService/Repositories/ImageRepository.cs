@@ -50,7 +50,8 @@ namespace ImageService.Repositories
             await _context.SaveChangesAsync();
         }
 
-        public async Task DeleteAsync(Guid id){
+        public async Task DeleteAsync(Guid id)
+        {
             var image = await _context.Images.FindAsync(id);
 
             _context.Remove(image);
