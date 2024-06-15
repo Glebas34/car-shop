@@ -54,12 +54,19 @@ namespace CardService.Controllers
         {   
             var carPage = await _carPageRepository.GetAsync(carPageId);
 
-            if(carPage==null)
+            if(carPage == null)
             {
                 return NotFound();
             }
 
-            var card = new Card {
+            var card = await _cardRepository.GetAsync(c => c.CarPageId == carPageId);
+
+            if(card != null)
+            {
+                return BadRequest();
+            }
+
+            card = new Card {
                 Manufacturer = carPage.Manufacturer,
                 Model = carPage.Model,
                 Price = carPage.Price,
