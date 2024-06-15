@@ -74,7 +74,7 @@ namespace RequisitionService.Controllers
             return Ok();
         }
 
-        [HttpDelete]
+        [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteAsync(Guid id)
         {
             var requisition = await _requisitionRepository.GetAsync(id);
