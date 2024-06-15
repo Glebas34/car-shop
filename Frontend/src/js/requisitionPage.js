@@ -45,7 +45,7 @@ async function fetchRequisitions() {
   });
   async function deleteRequisition(requisitionId) {
     try {
-    const url =  `http://localhost:4043/requisition-service/Requisition?id=${requisitionId}`;
+    const url =  `http://localhost:4043/requisition-service/Requisition/${requisitionId}`;
     const response = await fetch(url, {
     method: 'DELETE',
     });

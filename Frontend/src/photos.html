@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="css/photos.css">
+</head>
+<body>
+    <h1>Загрузка и обновление фотографий</h1>
+    <div id="mainPhotoSection">
+        <h2>Главное фото</h2>
+        <img id="mainPhoto" src="https://firebasestorage.googleapis.com/v0/b/car-shop-e3217.appspot.com/o/CarImages%2Fdefault.jpg?alt=media&token=3a120b4c-30f8-4518-8444-c6e752b6e00b" alt="Main Photo" class="photo"/>
+        <input type="file" id="mainPhotoUpload" />
+        <button class="photoButton" id="updateMainPhotoButton">Обновить главное фото</button>
+    </div>
+    <div id="additionalPhotosSection">
+        <h2>Дополнительные фото</h2>
+        <div id="additionalPhotos" class="photoGallery">
+        </div>
+        <input type="file" id="additionalPhotoUpload" multiple />
+        <button class="photoButton" id="updateAdditionalPhotosButton">Обновить дополнительные фото</button>
+        <button class="backButton" onclick="goBack()">Назад</button>
+    </div>
+    <script src="js/photos.js"></script>
+</body>
+</html>

@@ -20,16 +20,20 @@ async function init() {
       const tr = document.createElement('tr');
       tr.innerHTML = `
         <td>${carPage.id}</td>
-        <td>${carPage.manufacturer} ${carPage.model} (${carPage.year})</td>
-        <td><a href="carPage.html?id=${carPage.id}">Ссылка на автомобиль</a></td>
-        <td>
-          <button class="carButton" onclick="deleteCar('${carPage.id}')">Удалить</button>
-          <button class="carButton" onclick="createCard('${carPage.id}')">Создать карточку</button>
-        </td>
-      `;
+            <td>${carPage.manufacturer} ${carPage.model} (${carPage.year})</td>
+            <td><a href="carPage.html?id=${carPage.id}">Ссылка на автомобиль</a></td>
+            <td>
+                <button class="carButton" onclick="deleteCar('${carPage.id}')">Удалить</button>
+                <button class="carButton" onclick="createCard('${carPage.id}')">Создать карточку</button>
+                <button class="carButton" onclick="navigateToPhotos('${carPage.id}')">Перейти к фото</button>
+            </td>
+        `;
       tbody.appendChild(tr);
     });
   }
+  function navigateToPhotos(carId) {
+    window.location.href = `photos.html?carId=${carId}`;
+}
   async function deleteCar(id) {
     console.log(`Удалить авто с ID: ${id}`);
     try {
