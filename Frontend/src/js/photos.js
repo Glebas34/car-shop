@@ -84,10 +84,9 @@ function updateMainPhoto() {
         const reader = new FileReader();
         reader.onload = async function(e) {
             mainPhoto.src = e.target.result;
-            // Add logic to upload the photo to the server using carId
             const formData = new FormData();
             formData.append('CarPageId', carPageId);
-            formData.append('Image', mainPhotoUpload.files[0], mainPhotoUpload.files[0].name);
+            formData.append('MainImage', mainPhotoUpload.files[0], mainPhotoUpload.files[0].name);
             await sendPhoto(formData, `http://localhost:4043/image-service/Image/MainImage`);
             console.log(`Главное фото для автомобиля с ID: ${carPageId} обновлено`);
         }
@@ -124,7 +123,6 @@ function updateAdditionalPhotos() {
                 photoWrapper.appendChild(img);
                 photoWrapper.appendChild(deleteButton);
                 additionalPhotos.appendChild(photoWrapper);
-                // Add logic to upload the photo to the server using carId
                 const formData = new FormData();
                 formData.append('CarPageId', carPageId);
                 formData.append('Image', file, file.name);
@@ -148,10 +146,6 @@ async function sendPhoto(formData, url)
     try {
         const response = await fetch(url, {
             method: 'POST',
-            headers: 
-            {
-                //'Content-Type': 'multipart/form-data'
-            },
             body: formData
         });
         const data = await response.json();
