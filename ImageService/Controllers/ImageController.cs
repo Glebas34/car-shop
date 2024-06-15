@@ -89,6 +89,15 @@ namespace ImageService.Controllers
             var storageService = await _storageServiceCreator.CreateStorageService();
             var image = await storageService.UploadAsync(createImage, carPageId, true);
 
+            var mainImage = await _imageRepository.GetAsync(i => i.CarPageId == carPageId && i.IsMain);
+
+            if (mainImage != null)
+            {
+                await _imageRepository.DeleteAsync(mainImage.Id);
+
+                await _publishEndpoint.Publish(new ImageDeleted{Id = mainImage.Id, IsMain = mainImage.IsMain, CarPageId = mainImage.CarPageId});
+            }
+
             await _imageRepository.CreateAsync(image);
 
             await _publishEndpoint.Publish(new ImageCreated{Id = image.Id, Url = image.Url, CarPageId = carPageId, IsMain = true});
