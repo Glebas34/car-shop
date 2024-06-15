@@ -1,61 +1,58 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/adminStyles.css">
-    <link rel="icon" type="image/png" href="images/icon.png">
-    <title>Административная панель</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Car Page</title>
+  <link rel="stylesheet" href="css/adminStyles.css">
+  <link rel="icon" type="image/png" href="images/icon.png">
 </head>
 <body>
-        <div id="addOfferModal" class="modal">
-            <div class="modal-content">
-                <span class="close">&times;</span>
-                <input class="main__form-input" type="text" id="offerIdInput" placeholder="ID предложения">
-                <button class="main__form-button" id="submitOfferBtn">Добавить</button>
-                <button class="main__form-button" id="closeOfferBtn">Закрыть</button>
-            </div>
-        </div>
-        <div id="removeOfferModal" class="modal">
-            <div class="modal-content">
-                <span class="close">&times;</span>
-                <input class="main__form-input" type="text" id="offerIdInputRemove" placeholder="ID предложения">
-                <button class="main__form-button" id="submitOfferBtnRemove">Удалить</button>
-                <button class="main__form-button" id="closeOfferBtnRemove">Закрыть</button>
-            </div>
-        </div>
+  <table id="carTable">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Название авто</th>
+        <th>Страница авто</th>
+        <th>Действия</th>
+      </tr>
+    </thead>
+    <tbody>
+    </tbody>
+  </table>
+  <button id="addCarButton" class="carButton">Добавить авто</button>
+  <!-- Модальное окно -->
+  <div id="addCarModal" class="modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <h2>Добавить авто</h2>
+      <form id="addCarForm">
+        <label for="manufacturer">Производитель:</label>
+        <input type="text" id="manufacturer" name="manufacturer" required><br>
+        <label for="model">Модель:</label>
+        <input type="text" id="model" name="model" required><br>
+        <label for="price">Цена:</label>
+        <input type="number" id="price" name="price" required><br>
+        <label for="color">Цвет:</label>
+        <input type="text" id="color" name="color" required><br>
+        <label for="warranty">Гарантия:</label>
+        <input type="text" id="warranty" name="warranty" required><br>
+        <label for="speed">Скорость:</label>
+        <input type="text" id="speed" name="speed" required><br>
+        <label for="power">Мощность:</label>
+        <input type="text" id="power" name="power" required><br>
+        <label for="acceleration">Разгон:</label>
+        <input type="text" id="acceleration" name="acceleration" required><br>
+        <label for="fuelConsumption">Расход топлива:</label>
+        <input type="text" id="fuelConsumption" name="fuelConsumption" required><br>
+        <label for="package">Комплектация:</label>
+        <input type="text" id="package" name="package" required><br>
+        <label for="year">Год:</label>
+        <input type="number" id="year" name="year" required><br>
+        <button id ="addButton" class="carButton" type="submit">Добавить</button>
+      </form>
     </div>
-    <div class="section-container">
-        <h1>Каталог</h1>
-        <button class="main__form-button" id="addCarBtn">Добавить автомобиль</button>
-        <button class="main__form-button" id="removeCarBtn">Удалить автомобиль</button>
-        <div id="addModal" class="modal">
-            <div class="modal-content">
-                <span class="close">&times;</span>
-                <input class="main__form-input" type="text" id="manufacturerInput" placeholder="Производитель">
-                <input class="main__form-input" type="text" id="modelInput" placeholder="Модель">
-                <input class="main__form-input" type="number" id="priceInput" placeholder="Цена">
-                <input class="main__form-input" type="text" id="colorInput" placeholder="Цвет">
-                <input class="main__form-input" type="text" id="warrantyInput" placeholder="Гарантия">
-                <input class="main__form-input" type="text" id="speedInput" placeholder="Скорость">
-                <input class="main__form-input" type="text" id="powerInput" placeholder="Мощность">
-                <input class="main__form-input" type="text" id="accelerationInput" placeholder="Ускорение">
-                <input class="main__form-input" type="text" id="fuelConsumptionInput" placeholder="Расход топлива">
-                <input class="main__form-input" type="text" id="packageInput" placeholder="Пакет">
-                <input class="main__form-input" type="number" id="yearInput" placeholder="Год выпуска">
-                <button class="main__form-button" id="submitCarBtn">Добавить</button>
-                <button class="main__form-button" id="closeCarBtn">Закрыть</button>
-            </div>
-        </div>
-        <div id="removeModal" class="modal">
-            <div class="modal-content">
-                <span class="close">&times;</span>
-                <input class="main__form-input" type="number" id="carIdInputRemove" placeholder="ID автомобиля">
-                <button class="main__form-button" id="submitCarBtnRemove">Удалить</button>
-                <button class="main__form-button" id="closeCarBtnRemove">Закрыть</button>
-            </div>
-        </div>
-    </div>
-    <script src="js/admin.js"></script>
+  </div>
+  <script src="js/admin.js"></script>
 </body>
 </html>
