@@ -112,7 +112,51 @@ var data = new List<CreateCarPage>
         FuelConsumption = "12,3л/100км",
         Package = "Sport",
         Year = 2023
-    }};
+    },
+       new CreateCarPage
+    {
+        Manufacturer = "Mercedes-Benz",
+        Model = "S-Class S 580 4MATIC",
+        Price = 15000000,
+        Color = "Черный",
+        Warranty = "5 лет",
+        Speed = "250 км/ч",
+        Power = "496 л.с.",
+        Acceleration = "4,4 с",
+        FuelConsumption = "9,0л/100км", 
+        Package = "Luxury",
+        Year = 2024,
+
+    },
+      new CreateCarPage
+    {
+        Manufacturer = "Mercedes-Benz",
+        Model = "G-Class G 63 AMG",
+        Price = 18000000,
+        Color = "Полярно-белый",
+        Warranty = "5 лет",
+        Speed = "240 км/ч",
+        Power = "577 л.с.",
+        Acceleration = "4,5 с",
+        FuelConsumption = "13,1л/100км",
+        Package = "AMG",
+        Year = 2023
+    },
+      new CreateCarPage
+    {
+        Manufacturer = "Mercedes-Benz",
+        Model = "E-Class E 53 AMG 4MATIC+",
+        Price = 13000000,
+        Color = "Серый",
+        Warranty = "5 лет",
+        Speed = "250 км/ч",
+        Power = "429 л.с.",
+        Acceleration = "4,4 с",
+        FuelConsumption = "8,9л/100км",
+        Package = "AMG",
+        Year = 2023
+    },
+    };
 
 foreach(var carPage in data)
 {

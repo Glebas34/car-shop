@@ -1,5 +1,4 @@
 let carPageId;
-
 document.addEventListener('DOMContentLoaded', async function() {
     initializeCarPageId();
     if (!carPageId) {
@@ -19,13 +18,11 @@ document.addEventListener('DOMContentLoaded', async function() {
         console.error('Произошла ошибка при получении данных об автомобиле:', error);
     }
 });
-
 function initializeCarPageId() {
     const params = new URLSearchParams(window.location.search);
     carPageId = params.get('carId');
     console.log(`Extracted carPageId: ${carPageId}`);
 }
-
 async function loadExistingPhotos() {
     try {
         const mainPhotoResponse = await fetch(`http://localhost:4043/image-service/Image/MainImage/${carPageId}`);
