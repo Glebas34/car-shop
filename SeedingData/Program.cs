@@ -164,7 +164,7 @@ foreach(var carPage in data)
     var response = await client.PostAsync("car-page-service/CarPage", content);
 }
 
-Thread.Sleep(5000);
+Thread.Sleep(7000);
 
 carPages = JsonSerializer.Deserialize<List<CarPage>>(await GetData(client,"car-page-service/CarPage"), options);
 
