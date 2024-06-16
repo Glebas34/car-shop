@@ -1,12 +1,12 @@
 version: '3.9'
 
 services:
-  web:
-    image: img-static-site-example
+  client:
+    image: web-site
     build:
       context: .
       dockerfile: Frontend/Dockerfile
-    container_name: my-static-site
+    container_name: web-site
     restart: always
     ports:
       - "8080:80"
