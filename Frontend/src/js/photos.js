@@ -86,7 +86,7 @@ function updateMainPhoto() {
             mainPhoto.src = e.target.result;
             const formData = new FormData();
             formData.append('CarPageId', carPageId);
-            formData.append('MainImage', mainPhotoUpload.files[0], mainPhotoUpload.files[0].name);
+            formData.append('Image', mainPhotoUpload.files[0], mainPhotoUpload.files[0].name);
             await sendPhoto(formData, `http://localhost:4043/image-service/Image/MainImage`);
             console.log(`Главное фото для автомобиля с ID: ${carPageId} обновлено`);
         }
