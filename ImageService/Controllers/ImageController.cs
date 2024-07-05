@@ -4,6 +4,8 @@ using ImageService.Dtos;
 using MassTransit;
 using Contracts;
 using ImageService.Services;
+using ImageService.Options;
+using Microsoft.Extensions.Options;
 
 namespace ImageService.Controllers
 {
@@ -16,12 +18,12 @@ namespace ImageService.Controllers
         private readonly IPublishEndpoint _publishEndpoint;
         private readonly IStorageServiceCreator _storageServiceCreator;
 
-        public ImageController(IImageRepository imageRepository, ICarPageRepository carPageRepository, IPublishEndpoint publishEndpoint)
+        public ImageController(IImageRepository imageRepository, ICarPageRepository carPageRepository, IPublishEndpoint publishEndpoint, IOptions<StorageOptions> options)
         {
             _imageRepository = imageRepository;
             _carPageRepository = carPageRepository;
             _publishEndpoint = publishEndpoint;
-            _storageServiceCreator = new StorageServiceCreator();
+            _storageServiceCreator = new StorageServiceCreator(options);
         }
 
         [HttpGet("{carPageId}")]
@@ -57,6 +59,8 @@ namespace ImageService.Controllers
         [HttpPost]
         public async Task<IActionResult> PostAsync(CreateImage createImage)
         {   
+            var createStorageServiceTask = _storageServiceCreator.CreateStorageServiceAsync();
+
             var carPageId = createImage.CarPageId;
             var carPage = await _carPageRepository.GetAsync(carPageId);
 
@@ -65,7 +69,8 @@ namespace ImageService.Controllers
                 return NotFound();
             }
 
-            var storageService = await _storageServiceCreator.CreateStorageService();
+            var storageService = await createStorageServiceTask;
+            
             var image = await storageService.UploadAsync(createImage, carPageId, false);
 
             await _imageRepository.CreateAsync(image);
@@ -78,6 +83,8 @@ namespace ImageService.Controllers
         [HttpPost("MainImage")]
         public async Task<IActionResult> PostMainAsync(CreateImage createImage)
         {   
+            var createStorageServiceTask = _storageServiceCreator.CreateStorageServiceAsync();
+
             var carPageId = createImage.CarPageId;
             var carPage = await _carPageRepository.GetAsync(carPageId);
 
@@ -86,7 +93,8 @@ namespace ImageService.Controllers
                 return NotFound();
             }
 
-            var storageService = await _storageServiceCreator.CreateStorageService();
+            var storageService = await createStorageServiceTask;
+
             var image = await storageService.UploadAsync(createImage, carPageId, true);
 
             var mainImage = await _imageRepository.GetAsync(i => i.CarPageId == carPageId && i.IsMain);
@@ -94,7 +102,6 @@ namespace ImageService.Controllers
             if (mainImage != null)
             {
                 await _imageRepository.DeleteAsync(mainImage.Id);
-
                 await storageService.DeleteAsync(mainImage.Root);
 
                 await _publishEndpoint.Publish(new ImageDeleted{Id = mainImage.Id, IsMain = mainImage.IsMain, CarPageId = mainImage.CarPageId});
@@ -110,6 +117,8 @@ namespace ImageService.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteAsync(Guid id)
         {
+            var createStorageServiceTask = _storageServiceCreator.CreateStorageServiceAsync();
+
             var image = await _imageRepository.GetAsync(id);
 
             if(image == null)
@@ -117,7 +126,8 @@ namespace ImageService.Controllers
                 return NotFound();
             }
 
-            var storageService = await _storageServiceCreator.CreateStorageService();
+            var storageService = await createStorageServiceTask;
+
             await storageService.DeleteAsync(image.Root);
             await _imageRepository.DeleteAsync(image.Id);
 

@@ -2,6 +2,6 @@ namespace ImageService.Interfaces
 {
     public interface IStorageServiceCreator
     {
-        Task<IStorageService> CreateStorageService();
+        Task<IStorageService> CreateStorageServiceAsync();
     }
 }

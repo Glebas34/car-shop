@@ -4,6 +4,9 @@ using ImageService.Repositories;
 using ImageService.Database;
 using MassTransit;
 using ImageService.Consumers;
+using ImageService.Services;
+using Firebase.Storage;
+using ImageService.Options;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,6 +16,7 @@ builder.Services.AddDbContext<AppDbContext>(options => options.UseNpgsql(builder
 builder.Services.AddControllers();
 builder.Services.AddScoped<IImageRepository, ImageRepository>();
 builder.Services.AddScoped<ICarPageRepository, CarPageRepository>();
+builder.Services.Configure<StorageOptions>(builder.Configuration.GetSection(nameof(StorageOptions)));
 builder.Services.AddMassTransit(busConfigurator=>
 {
     busConfigurator.SetKebabCaseEndpointNameFormatter();
