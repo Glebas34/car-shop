@@ -1,13 +1,13 @@
-using Microsoft.EntityFrameworkCore;
 using RequisitionService.Database;
 using RequisitionService.Interfaces;
 using RequisitionService.Repositories;
 using RequisitionService.Consumers;
+using RequisitionService.MinimalAPI;
 using MassTransit;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddControllers();
 builder.Services.AddDbContext<AppDbContext>(options => options.UseNpgsql(builder.Configuration.GetConnectionString("PostgreSQL")));
 builder.Services.AddScoped<IRequisitionRepository,RequisitionRepository>();
 builder.Services.AddScoped<ICarPageRepository,CarPageRepository>();
@@ -53,8 +53,8 @@ using (var scope = app.Services.CreateScope())
 
 //app.UseHttpsRedirection();
 
-app.UseAuthorization();
+//app.UseAuthorization();
 
-app.MapControllers();
+app.MapRequisitionEndpoints();
 
 app.Run();

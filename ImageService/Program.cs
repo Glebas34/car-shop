@@ -4,19 +4,17 @@ using ImageService.Repositories;
 using ImageService.Database;
 using MassTransit;
 using ImageService.Consumers;
-using ImageService.Services;
-using Firebase.Storage;
 using ImageService.Options;
+using ImageService.MinimalAPI;
+using ImageService.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddDbContext<AppDbContext>(options => options.UseNpgsql(builder.Configuration.GetConnectionString("PostgreSQL")));
-builder.Services.AddControllers();
 builder.Services.AddScoped<IImageRepository, ImageRepository>();
 builder.Services.AddScoped<ICarPageRepository, CarPageRepository>();
 builder.Services.Configure<StorageOptions>(builder.Configuration.GetSection(nameof(StorageOptions)));
+builder.Services.AddTransient<IStorageServiceCreator,StorageServiceCreator>();
 builder.Services.AddMassTransit(busConfigurator=>
 {
     busConfigurator.SetKebabCaseEndpointNameFormatter();
@@ -58,9 +56,9 @@ using (var scope = app.Services.CreateScope())
 
 //app.UseHttpsRedirection();
 
-app.UseAuthorization();
+//app.UseAuthorization();
 
-app.MapControllers();
+app.MapImageEndpoints();
 
 app.Run();
 

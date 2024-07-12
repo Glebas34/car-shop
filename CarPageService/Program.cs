@@ -4,13 +4,13 @@ using CarPageService.Repositories;
 using CarPageService.Database;
 using MassTransit;
 using CarPageService.Consumers;
+using CarPageService.MinimalAPI;
 
 System.Net.ServicePointManager.ServerCertificateValidationCallback += 
     (s, cert, chain, sslPolicyErrors) => true;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddControllers();
 builder.Services.AddDbContext<AppDbContext>(options => options.UseNpgsql(builder.Configuration.GetConnectionString("PostgreSQL")));
 builder.Services.AddScoped<ICarPageRepository,CarPageRepository>();
 builder.Services.AddScoped<IImageRepository,ImageRepository>();
@@ -54,9 +54,9 @@ using (var scope = app.Services.CreateScope())
 
 //app.UseHttpsRedirection();
 
-app.UseAuthorization();
+//app.UseAuthorization();
 
-app.MapControllers();
+app.MapCarPageEndpoints();
 
 app.Run();
 

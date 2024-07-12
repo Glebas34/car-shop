@@ -77,7 +77,13 @@ selectedBrand.addEventListener('change', function() {
 });
 async function fetchData(price,brand='',model='') {
   try {
-    const url = `http://localhost:4043/card-service/Card/Filtered?maxPrice=${price}&manufacturer=${brand}&model=${model}`;
+    let url = `http://localhost:4043/card-service/Card/Filtered/${price}`;
+    if(brand != ''){
+      url += `/${brand}`;
+    }
+    if(model != ''){
+      url += `/${model}`;
+    }
     const response = await fetch(url);
     const data = await response.json();
     console.log('Данные получены:', data);
